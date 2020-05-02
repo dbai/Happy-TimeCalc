@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D19C477245DAC000017D50C /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19C476245DAC000017D50C /* SeparatorView.swift */; };
 		3D26896D245C778900C53179 /* SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26896C245C778900C53179 /* SafeArea.swift */; };
 		3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833424592A7000B6FAAA /* AppDelegate.swift */; };
 		3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833624592A7000B6FAAA /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D19C476245DAC000017D50C /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		3D26896C245C778900C53179 /* SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArea.swift; sourceTree = "<group>"; };
 		3D44833124592A7000B6FAAA /* Happy TimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Happy TimeCalc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D44833424592A7000B6FAAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,8 +62,9 @@
 			children = (
 				3D44833424592A7000B6FAAA /* AppDelegate.swift */,
 				3D44833624592A7000B6FAAA /* SceneDelegate.swift */,
-				3D44833824592A7000B6FAAA /* ViewController.swift */,
 				3D44833A24592A7000B6FAAA /* Main.storyboard */,
+				3D44833824592A7000B6FAAA /* ViewController.swift */,
+				3D19C476245DAC000017D50C /* SeparatorView.swift */,
 				3D44833D24592A7200B6FAAA /* Assets.xcassets */,
 				3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */,
 				3D44834224592A7200B6FAAA /* Info.plist */,
@@ -143,6 +146,7 @@
 			files = (
 				3D44833924592A7000B6FAAA /* ViewController.swift in Sources */,
 				3D26896D245C778900C53179 /* SafeArea.swift in Sources */,
+				3D19C477245DAC000017D50C /* SeparatorView.swift in Sources */,
 				3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */,
 				3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */,
 			);
