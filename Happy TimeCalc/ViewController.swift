@@ -21,7 +21,6 @@ class ViewController: UIViewController {
     
     var safeArea: SafeArea!
     
-    @IBOutlet weak var leftMarginWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var dummyTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dummyBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var resultTopConstraint: NSLayoutConstraint!
@@ -47,7 +46,7 @@ class ViewController: UIViewController {
         
 //        print("In viewDidAppear, UIView's safeAreaInsets: \(self.view.safeAreaInsets)")
 //        print("scrollView.frame.width: \(scrollView.frame.width)")
-        leftMarginWidthConstraint.constant = scrollView.frame.width * 0.1
+//        leftMarginWidthConstraint.constant = scrollView.frame.width * 0.1
         
         label.center.y = scrollView.frame.height
 //        print("scrollView.frame.height: \(scrollView.frame.height)")
@@ -62,7 +61,7 @@ class ViewController: UIViewController {
 //        print("UIView's frame.self: \(self.view.frame.self)")
 //        print("UIScreen.main.bounds: \(UIScreen.main.bounds)")
 //        print("UIView's safeAreaInsets: \(self.view.safeAreaInsets)")
-//        print("scrollView.frame.self: \(scrollView.frame.self)")
+//        print("In viewDidAppear, scrollView.frame.self: \(scrollView.frame.self)")
 
     }
     
