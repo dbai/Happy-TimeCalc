@@ -60,15 +60,15 @@
 		3D44833324592A7000B6FAAA /* Happy TimeCalc */ = {
 			isa = PBXGroup;
 			children = (
+				3D44833D24592A7200B6FAAA /* Assets.xcassets */,
 				3D44833424592A7000B6FAAA /* AppDelegate.swift */,
 				3D44833624592A7000B6FAAA /* SceneDelegate.swift */,
+				3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */,
 				3D44833A24592A7000B6FAAA /* Main.storyboard */,
 				3D44833824592A7000B6FAAA /* ViewController.swift */,
-				3D19C476245DAC000017D50C /* SeparatorView.swift */,
-				3D44833D24592A7200B6FAAA /* Assets.xcassets */,
-				3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */,
-				3D44834224592A7200B6FAAA /* Info.plist */,
 				3D26896C245C778900C53179 /* SafeArea.swift */,
+				3D19C476245DAC000017D50C /* SeparatorView.swift */,
+				3D44834224592A7200B6FAAA /* Info.plist */,
 			);
 			path = "Happy TimeCalc";
 			sourceTree = "<group>";

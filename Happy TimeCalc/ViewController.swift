@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var label: UILabel!
+//    @IBOutlet weak var label: UILabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -28,7 +28,6 @@ class ViewController: UIViewController {
     var keyboardPosition: CGPoint?
     
     var safeArea: SafeArea!
-    var isSafeAreaChanged = false
 
     @IBOutlet weak var dummyTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dummyBottomContraint: NSLayoutConstraint!
@@ -59,10 +58,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var btn0: UIButton!
     @IBOutlet weak var btnBackspace: UIButton!
 
+    var isLayoutChanged = false
+
     var timeLabelWidth: CGFloat = 54
     var timeLabelHeight: CGFloat = 34
-    var firstRowOriginY: CGFloat = 15
     var rowSpacing: CGFloat = 75
+    var firstRowOriginY: CGFloat = 15
+    var firstOpertorRowOriginY: CGFloat = 57
+    var operatorButtonSideLength: CGFloat = 25
     var focusedBackgroundColor = UIColor(red: 230 / 255.0, green: 230 / 255.0, blue: 230 / 255.0, alpha: 1.0)
     var focusedBackgroundColorInDarkMode = UIColor(red: 130 / 255.0, green: 130 / 255.0, blue: 130 / 255.0, alpha: 1.0)
     var timeLabelBorderColor = UIColor.lightGray.cgColor
@@ -81,14 +84,6 @@ class ViewController: UIViewController {
         
         // 記得鍵盤上一次移動的位置
         NotificationCenter.default.addObserver(self, selector: #selector(restoreKeyboardPosition), name: UIApplication.willEnterForegroundNotification, object: nil)
-        
-        addRow(UIButton())
-        focusedLabel = timeRows[0][0]
-        timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
-        addRow(UIButton())
-                        
-        // For testing purpose only
-//        addMultipleRows(numberOfRows: 6)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -98,16 +93,16 @@ class ViewController: UIViewController {
 //        print("scrollView.frame.width: \(scrollView.frame.width)")
 //        leftMarginWidthConstraint.constant = scrollView.frame.width * 0.1
         
-        label.center.y = scrollView.frame.height
+        //////////////////label.center.y = scrollView.frame.height
         
-//        print("scrollView.frame.height: \(scrollView.frame.height)")
+        print("In viewDidAppear scrollView.frame.self: \(scrollView.frame.self)")
 //        print("label.frame.maxY: \(label.frame.maxY)")
         
 //        print("dummyTopConstraint.constant: \(dummyTopConstraint.constant)")
         
-        if label.frame.maxY > scrollView.frame.height {
-            dummyBottomContraint.constant = label.frame.maxY - dummyTopConstraint.constant
-        }
+        //////////////////if label.frame.maxY > scrollView.frame.height {
+            //dummyBottomContraint.constant = label.frame.maxY - dummyTopConstraint.constant
+        //}
         contentView.setNeedsLayout() // 不加這行好像也沒差
         
 //        print("dummyBottomContraint.constant: \(dummyBottomContraint.constant)")
@@ -116,35 +111,70 @@ class ViewController: UIViewController {
 //        print("UIScreen.main.bounds: \(UIScreen.main.bounds)")
 //        print("UIView's safeAreaInsets: \(self.view.safeAreaInsets)")
 //        print("In viewDidAppear, scrollView.frame.self: \(scrollView.frame.self)")
+        
+//        addRow(UIButton())
+//        focusedLabel = timeRows[0][0]
+//        timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
+//        addRow(UIButton())
+                        
+        // For testing purpose only
+//        addMultipleRows(numberOfRows: 6)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-                
+                        
         contentView.layoutIfNeeded()
+        
+        print("In viewDidLayoutSubviews scrollView.frame.self: \(scrollView.frame.self)")
+        print("contentView.frame.self: \(contentView.frame.self)")
         
         separatorView.frame.origin.x = hrResult.frame.minX - 5
         separatorView.frame.size.width = secResult.frame.maxX - separatorView.frame.origin.x + 5
-        print("viewDidLayoutSubviews is called")
         
-        print("isSafeAreaChanged: \(isSafeAreaChanged)")
-        if isSafeAreaChanged {
-            for i in 0...timeRows.count - 1 {
-                timeRows[i][0].center.x = hrResult.center.x
-                timeRows[i][1].center.x = minResult.center.x
-                timeRows[i][2].center.x = secResult.center.x
+        print("scrollView.frame.height: \(scrollView.frame.height)")
+        resultBottomConstraint.constant = scrollView.frame.height - resultTopConstraint.constant - hrResult.frame.height
+        print("resultBottomConstraint.constant: \(resultBottomConstraint.constant)")
+        
+        if isLayoutChanged {
+            if (timeRows.count > 0) {
+                for i in 0...timeRows.count - 1 {
+                    timeRows[i][0].center.x = hrResult.center.x
+                    timeRows[i][1].center.x = minResult.center.x
+                    timeRows[i][2].center.x = secResult.center.x
+                }
+            }
+            
+            if operatorButtons.count > 0 {
+                for i in 0...operatorButtons.count - 1 {
+                    if i % 2 == 0 {
+                        operatorButtons[i].center.x = minResult.frame.minX
+                    }
+                    else {
+                        operatorButtons[i].center.x = minResult.frame.maxX
+                    }
+                }
+            }
+            
+            if removeRowButtons.count > 0 {
+                for i in 0...removeRowButtons.count - 1 {
+                    removeRowButtons[i].center.x = addRowButton.center.x
+                    removeRowButtons[i].center.y = timeRows[i + 1][2].center.y
+                }
             }
         }
-        isSafeAreaChanged = false
+        
+        isLayoutChanged = false
     }
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        
+                        
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
-//        print("safeArea's top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
+        print("safeArea's top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
         
-        isSafeAreaChanged = true
+        isLayoutChanged = true
+        contentView.layoutIfNeeded()
     }
 
     @objc func panKeyboard(recognizer: UILongPressGestureRecognizer) {
@@ -197,45 +227,44 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addRow(_ sender: UIButton) {
+        // 若有元件的 x, y 設為 0，則之後會在 viewDidLayoutSubviews() 中動態決定實際的值
+        
+//        contentView.layoutIfNeeded()
+        
         // 增加 + 和 - 按鈕
-//        if timeRows.count != 0 {
-//            let operatorRow: [UIButton] = [UIButton(type: .custom), UIButton(type: .custom)]
-//
-//            if (self.operatorButtons.count == 0) {
-//                operatorRow[0].frame = CGRect(x: 0, y: 121, width: 25, height: 25) //+
-//                operatorRow[0].center.x = minLabel.frame.minX
-//                operatorRow[1].frame = CGRect(x: 0, y: 121, width: 25, height: 25) //-
-//                operatorRow[1].center.x = minLabel.frame.maxX
-//            }
-//            else {
-//                operatorRow[0].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 2].frame.origin.y + rowSpacing, width: 25, height: 25) //+
-//                operatorRow[0].center.x = minLabel.frame.minX
-//                operatorRow[1].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 1].frame.origin.y + rowSpacing, width: 25, height: 25) //-
-//                operatorRow[1].center.x = minLabel.frame.maxX
-//            }
-//
-//            // 加進 operatorButtons 陣列以及畫面上
-//            for (i, button) in operatorRow.enumerated() {
-//                button.setImage(UIImage(named: i == 0 ? "+" : "-"), for: .normal)
-//                button.layer.borderWidth = i == 0 ? 1 : 0
-//                button.layer.borderColor = btnBorderColor
-//                button.tag = operatorButtons.count
-//                button.addTarget(self, action: #selector(addOrSubstract(_:)), for: .touchUpInside)
-//                operatorButtons.append(button)
-//                contentView.addSubview(button)
-//            }
-//            operators.append(true)
-//        }
+        if timeRows.count != 0 {
+            let operatorRow: [UIButton] = [UIButton(type: .custom), UIButton(type: .custom)]
+
+            if (self.operatorButtons.count == 0) {
+                operatorRow[0].frame = CGRect(x: 0, y: firstOpertorRowOriginY, width: operatorButtonSideLength, height: operatorButtonSideLength) //+
+                operatorRow[1].frame = CGRect(x: 0, y: firstOpertorRowOriginY, width: operatorButtonSideLength, height: operatorButtonSideLength) //-
+            }
+            else {
+                operatorRow[0].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 2].frame.origin.y + rowSpacing, width: operatorButtonSideLength, height: operatorButtonSideLength) //+
+                operatorRow[0].center.x = minResult.frame.minX
+                operatorRow[1].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 1].frame.origin.y + rowSpacing, width: operatorButtonSideLength, height: operatorButtonSideLength) //-
+                operatorRow[1].center.x = minResult.frame.maxX
+            }
+
+            // 加進 operatorButtons 陣列以及畫面上
+            for (i, button) in operatorRow.enumerated() {
+                button.setImage(UIImage(named: i == 0 ? "+" : "-"), for: .normal)
+                button.layer.borderWidth = i == 0 ? 1 : 0
+                button.layer.borderColor = btnBorderColor
+                button.tag = operatorButtons.count
+                button.addTarget(self, action: #selector(addOrSubstract(_:)), for: .touchUpInside)
+                operatorButtons.append(button)
+                contentView.addSubview(button)
+            }
+            operators.append(true)
+        }
         
         // 增加時間欄位列
         let lastRowY = timeRows.count == 0 ? firstRowOriginY : timeRows[self.timeRows.count - 1][2].frame.origin.y + rowSpacing
         let row: [UILabel] = [UILabel(), UILabel(), UILabel()]
-        row[0].frame = CGRect(x: hrResult.frame.origin.x, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
-        row[0].center.x = hrResult.center.x
-        row[1].frame = CGRect(x: minResult.frame.origin.x, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
-        row[1].center.x = minResult.center.x
-        row[2].frame = CGRect(x: secResult.frame.origin.x, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
-        row[2].center.x = secResult.center.x
+        row[0].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
+        row[1].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
+        row[2].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         
         // 加進 timeRows 陣列以及畫面上
         for (i, label) in row.enumerated() {
@@ -257,51 +286,155 @@ class ViewController: UIViewController {
         timeRows.append(row)
         
         // 增加減列按鈕
-//        if timeRows.count > 1 {
-//            let removeButton = UIButton(type: .system)
-//            removeButton.setTitle("⤴︎", for: .normal)
-//            removeButton.setTitleColor(.systemBlue, for: .normal)
-//            removeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-//            removeButton.frame = CGRect(x: addRowButton.frame.origin.x, y: removeRowButtons.count == 0 ? 155 : self.removeRowButtons[self.removeRowButtons.count - 1].frame.origin.y + rowSpacing, width: addRowButton.frame.size.width, height: addRowButton.frame.size.height)
-//            removeButton.tag = self.removeRowButtons.count
-//            removeButton.addTarget(self, action: #selector(removeRow(_:)), for: .touchUpInside)
+        if timeRows.count > 1 {
+            let removeButton = UIButton(type: .system)
+            removeButton.setTitle("⤴︎", for: .normal)
+            removeButton.setTitleColor(.systemBlue, for: .normal)
+            removeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+            removeButton.frame = CGRect(x: 0, y: 0/*removeRowButtons.count == 0 ? 155 : self.removeRowButtons[self.removeRowButtons.count - 1].frame.origin.y + rowSpacing*/, width: addRowButton.frame.size.width, height: addRowButton.frame.size.height)
+            removeButton.tag = self.removeRowButtons.count
+            removeButton.addTarget(self, action: #selector(removeRow(_:)), for: .touchUpInside)
 //            removeButton.addTarget(self, action: #selector(btnTouchedDown(_:)), for: .touchDown)
 //            removeButton.addTarget(self, action: #selector(btnTouchedUp(btn:playSound:)), for: .touchCancel)
 //            removeButton.addTarget(self, action: #selector(btnTouchedUp(btn:playSound:)), for: .touchDragOutside)
-//            contentView.addSubview(removeButton)
-//            self.removeRowButtons.append(removeButton)
-//        }
-//
-//        // 調整結果列
+            contentView.addSubview(removeButton)
+            self.removeRowButtons.append(removeButton)
+        }
+
+        // 調整結果列
         adjustSeparatorAndResultLabels(isAppend: true)
 //        refeshRemoveButtons()
 //
 //        btnTouchedUp(btn: sender, playSound: true)
     }
     
+    @objc func removeRow(_ sender: UIButton) {
+        let n = sender.tag
+        
+        // 判斷欲刪之列是不是最後一列，如果不是，就要把刪除之列後面的列往上移
+        var shouldMoveUpRemainingRows = false
+        if n + 1 < self.timeRows.count - 1 {
+            shouldMoveUpRemainingRows = true
+        }
+        
+        // 刪除時間欄位
+        for (_, label) in self.timeRows[n + 1].enumerated() {
+            label.removeFromSuperview()
+        }
+        self.timeRows.remove(at: n + 1)
+        // 重新照順序排定時間欄位的 tag
+        
+        // 刪除 + 和 - 按鈕
+        self.operatorButtons[n * 2 + 1].removeFromSuperview()
+        self.operatorButtons[n * 2].removeFromSuperview()
+        self.operatorButtons.remove(at: n * 2 + 1)
+        self.operatorButtons.remove(at: n * 2)
+        // 重新照順序排定每列所選運算元按鈕的 tag
+        for (i, operatorButton) in self.operatorButtons.enumerated() {
+            operatorButton.tag = i
+        }
+        self.operators.remove(at: n)
+        
+        // 刪除減列按鈕
+        self.removeRowButtons[n].removeFromSuperview()
+        self.removeRowButtons.remove(at: n)
+        // 重新照順序排定減列按鈕的 tag
+        for (i, removeRowButton) in self.removeRowButtons.enumerated() {
+            removeRowButton.tag = i
+        }
+
+        //若刪的是中間的列，則下面的列要往上移
+        if shouldMoveUpRemainingRows {
+            for i in n + 1...self.timeRows.count - 1 {
+                self.operatorButtons[(i - 1) * 2].frame.origin.y -= 75
+                self.operatorButtons[(i - 1) * 2 + 1].frame.origin.y -= 75
+
+                self.timeRows[i][0].frame.origin.y -= 75
+                self.timeRows[i][1].frame.origin.y -= 75
+                self.timeRows[i][2].frame.origin.y -= 75
+                self.timeRows[i][0].tag = timeRows[i - 1][0].tag + 3
+                self.timeRows[i][1].tag = timeRows[i - 1][1].tag + 3
+                self.timeRows[i][2].tag = timeRows[i - 1][2].tag + 3
+
+                self.removeRowButtons[i - 1].frame.origin.y -= 75
+            }
+        }
+
+        // 調整結果列
+        adjustSeparatorAndResultLabels(isAppend: false)
+//        refeshRemoveButtons()
+        
+        // 檢查 focusedLabel 是否在要被移除的列中，如果是就把 focusedLabel 往上移一列
+        for i in (n + 1) * 3...(n + 1) * 3 + 2 {
+            if i == focusedLabel?.tag {
+                if n == timeRows.count - 1 { // 是最後一列
+                    focusedLabel = timeRows[n][i % 3]
+                    focusedLabel?.backgroundColor = getFocusedBackgroundColor()
+                    break
+                }
+                else {
+                    focusedLabel = timeRows[n + 1][i % 3]
+                    focusedLabel?.backgroundColor = getFocusedBackgroundColor()
+                    break
+                }
+            }
+        }
+
+//        btnTouchedUp(btn: sender, playSound: true)
+    }
+    
+    @objc func addOrSubstract(_ sender: UIButton) {
+//        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+        
+        if sender.tag % 2 != 1 {
+            self.operatorButtons[sender.tag].layer.borderWidth = 1
+            self.operatorButtons[sender.tag].layer.borderColor = btnBorderColor
+            self.operatorButtons[sender.tag + 1].layer.borderWidth = 0
+            self.operators[sender.tag / 2] = true
+        }
+        else {
+            self.operatorButtons[sender.tag - 1].layer.borderWidth = 0
+            self.operatorButtons[sender.tag].layer.borderWidth = 1
+            self.operatorButtons[sender.tag].layer.borderColor = btnBorderColor
+            self.operators[sender.tag / 2] = false
+        }
+    }
+    
     func adjustSeparatorAndResultLabels(isAppend: Bool) {
-        print("separatorView.frame.origin.y: \(separatorView.frame.origin.y)")
         if timeRows.count >= 2 {
             if isAppend {
                 separatorView.frame.origin.y += rowSpacing
-                hrResult.frame.origin.y = separatorView.frame.origin.y + 45
-                minResult.frame.origin.y = separatorView.frame.origin.y + 45
-                secResult.frame.origin.y = separatorView.frame.origin.y + 45
+                resultTopConstraint.constant += rowSpacing
+
+                print("hrResult.frame.maxY: \(hrResult.frame.maxY)")
+//                if label.frame.maxY > scrollView.frame.height {
+//                    dummyBottomContraint.constant = label.frame.maxY - dummyTopConstraint.constant
+//                }
             }
             else {
+                resultTopConstraint.constant -= rowSpacing
                 separatorView.frame.origin.y -= rowSpacing
-                hrResult.frame.origin.y = separatorView.frame.origin.y + 45
-                minResult.frame.origin.y = separatorView.frame.origin.y + 45
-                secResult.frame.origin.y = separatorView.frame.origin.y + 45
             }
         }
         
         // 調整計算與加列按鈕位置
-        calculateButton.center.y = separatorView.center.y + 2
+//        calculateButton.center.y = separatorView.center.y + 2
+                
+        // 更新減列按鈕出現與否
+        if removeRowButtons.count <= 1 {
+            for (i, _) in removeRowButtons.enumerated() {
+                removeRowButtons[i].isHidden = true
+            }
+        }
+        else {
+            for (i, _) in removeRowButtons.enumerated() {
+                removeRowButtons[i].isHidden = false
+            }
+        }
         
-        print("Prepared to call viewDidLayoutSubviews")
-//        viewDidLayoutSubviews()
-        contentView.setNeedsLayout() // 不加這行好像也沒差
+//        contentView.setNeedsLayout() // 不加這行好像也沒差
+        isLayoutChanged = true
+        viewDidLayoutSubviews()
     }
     
     @objc func focus(_ sender: UITapGestureRecognizer) {
