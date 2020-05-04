@@ -12,12 +12,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+    var soundSetting = true
+    var supportDarkMode = true
+    
+    private(set) static var shared: SceneDelegate?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        Self.shared = self
+        
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = ViewController()
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+        
+        if UserDefaults.standard.value(forKey: "sound") == nil {
+            UserDefaults.standard.set(true, forKey: "sound")
+        }
+        soundSetting = UserDefaults.standard.bool(forKey: "sound")
+        
+        if UserDefaults.standard.value(forKey: "supportDarkMode") == nil {
+            UserDefaults.standard.set(true, forKey: "supportDarkMode")
+        }
+        supportDarkMode = UserDefaults.standard.bool(forKey: "supportDarkMode")
+        print("Support Dark Mode? \(supportDarkMode)")
+        
+        if #available(iOS 13.0, *) {
+            if !supportDarkMode {
+                window?.overrideUserInterfaceStyle = .light
+            }
+            else {
+                window?.overrideUserInterfaceStyle = .unspecified
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

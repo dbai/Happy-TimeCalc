@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D19C477245DAC000017D50C /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19C476245DAC000017D50C /* SeparatorView.swift */; };
+		3D1E6ACC2460557A00C86338 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E6ACB2460557A00C86338 /* SettingsViewController.swift */; };
 		3D26896D245C778900C53179 /* SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26896C245C778900C53179 /* SafeArea.swift */; };
 		3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833424592A7000B6FAAA /* AppDelegate.swift */; };
 		3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833624592A7000B6FAAA /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		3D19C476245DAC000017D50C /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		3D1E6ACB2460557A00C86338 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3D26896C245C778900C53179 /* SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArea.swift; sourceTree = "<group>"; };
 		3D44833124592A7000B6FAAA /* Happy TimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Happy TimeCalc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D44833424592A7000B6FAAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				3D44833824592A7000B6FAAA /* ViewController.swift */,
 				3D26896C245C778900C53179 /* SafeArea.swift */,
 				3D19C476245DAC000017D50C /* SeparatorView.swift */,
+				3D1E6ACB2460557A00C86338 /* SettingsViewController.swift */,
 				3D44834224592A7200B6FAAA /* Info.plist */,
 			);
 			path = "Happy TimeCalc";
@@ -153,6 +156,7 @@
 				3D19C477245DAC000017D50C /* SeparatorView.swift in Sources */,
 				3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */,
 				3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */,
+				3D1E6ACC2460557A00C86338 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +303,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36E9BQ7925;
 				INFOPLIST_FILE = "Happy TimeCalc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,7 +322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 36E9BQ7925;
 				INFOPLIST_FILE = "Happy TimeCalc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

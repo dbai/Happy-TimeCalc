@@ -57,6 +57,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="gear" catalog="system"/>
+                                <connections>
+                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nrr-MZ-zDJ"/>
+                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="zzg-Yo-dyp"/>
+                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="Qby-vh-Ngj"/>
+                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="Sj3-cE-qkZ"/>
+                                    <segue destination="xhn-fN-8cx" kind="presentation" id="k3k-Zc-BBz"/>
+                                </connections>
                             </button>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0b-eB-LCz" userLabel="Right Margin">
                                 <rect key="frame" x="380" y="57" width="34" height="24"/>
@@ -92,6 +99,9 @@
                                                 <state key="normal" title="⤵︎"/>
                                                 <connections>
                                                     <action selector="addRow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YDD-kc-fgN"/>
+                                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="TTx-Ed-nuv"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="PrW-EK-PII"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="xCJ-6g-DpM"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78E-Un-PJN" userLabel="Separator View" customClass="SeparatorView" customModule="Happy_TimeCalc" customModuleProvider="target">
@@ -107,6 +117,9 @@
                                                 </constraints>
                                                 <state key="normal" title="＝" image="Equal"/>
                                                 <connections>
+                                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="C6D-0g-zsO"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="Bh7-ou-XtV"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="WcO-j0-g9A"/>
                                                     <action selector="calculate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ncS-LF-xDx"/>
                                                 </connections>
                                             </button>
@@ -145,6 +158,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" image="Left"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="fYG-am-DWU"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="mvZ-bN-DRM"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="zhu-Hb-hli"/>
                                             <action selector="moveFocus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TzG-7l-FCI"/>
                                         </connections>
                                     </button>
@@ -154,6 +170,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" image="Right"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="2qg-qZ-594"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="U49-O9-EwA"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="agp-h0-Fzf"/>
                                             <action selector="moveFocus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PSa-8o-UMl"/>
                                         </connections>
                                     </button>
@@ -162,6 +181,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="1" image="1"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="plp-Hm-BYs"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="5KK-wT-pBF"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="uHp-bJ-LUZ"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MaW-pj-aFx"/>
                                         </connections>
                                     </button>
@@ -170,6 +192,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="2" image="2"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="eiS-rA-XnO"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="E6V-1Z-sDC"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="kAV-Pk-YZn"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIb-1J-m7q"/>
                                         </connections>
                                     </button>
@@ -178,6 +203,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="3" image="3"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="E9o-UX-UeM"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="48z-5q-7xm"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="Pws-6f-HFx"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NNH-SR-Ps7"/>
                                         </connections>
                                     </button>
@@ -186,6 +214,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="4" image="4"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="j03-H2-18T"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="FWA-pP-3hq"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="kOs-EQ-z41"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IqL-Bx-nsC"/>
                                         </connections>
                                     </button>
@@ -195,6 +226,9 @@
                                         <gestureRecognizers/>
                                         <state key="normal" title="5" image="5"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="HTw-Tv-EWW"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="dgm-tc-K9n"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="hJh-a6-h76"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bkE-nC-0Fp"/>
                                         </connections>
                                     </button>
@@ -204,6 +238,9 @@
                                         <gestureRecognizers/>
                                         <state key="normal" title="6" image="6"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="8rE-UB-zAI"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="QnV-Nm-TVY"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="zwI-Rq-AuW"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UYP-oO-0PN"/>
                                         </connections>
                                     </button>
@@ -212,6 +249,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="7" image="7"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="MGV-od-a31"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="8NR-Ww-HAO"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="jcK-bs-ifZ"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cir-mV-RL1"/>
                                         </connections>
                                     </button>
@@ -220,6 +260,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="8" image="8"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="2d4-EG-oeN"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="6N7-hl-Kqk"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="Nsn-ya-asJ"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ArH-Dz-lzM"/>
                                         </connections>
                                     </button>
@@ -228,6 +271,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="9" image="9"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="v2Z-AX-y0G"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="Bxc-ES-nYD"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="HJL-5d-aGF"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="71g-o7-YjU"/>
                                         </connections>
                                     </button>
@@ -236,6 +282,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="0" image="0"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="bcn-Ma-URC"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="3Ax-I6-iHW"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="8rW-Zi-TCq"/>
                                             <action selector="inputDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yyk-Nh-6P3"/>
                                         </connections>
                                     </button>
@@ -244,6 +293,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="C" image="C"/>
                                         <connections>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="rJ3-fC-Jbw"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="4tz-d9-cDj"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="8kX-CM-tl9"/>
                                             <action selector="clear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xlH-Vg-Eyt"/>
                                         </connections>
                                     </button>
@@ -253,6 +305,9 @@
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backspace:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ujs-Bi-Gt3"/>
+                                            <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="PWw-7u-Ozp"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="5pN-z1-w00"/>
+                                            <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="WR0-uM-2jw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -379,6 +434,86 @@
             </objects>
             <point key="canvasLocation" x="137.94642857142856" y="126.08695652173914"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="Yz0-lt-QuT">
+            <objects>
+                <viewController id="xhn-fN-8cx" customClass="SettingsViewController" customModule="Happy_TimeCalc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5SA-jc-0rB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7WG-iR-h0l" userLabel="Close">
+                                <rect key="frame" x="20" y="20" width="17.333333333333329" height="22"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <segue destination="6Et-yA-50J" kind="unwind" unwindAction="backFromSettingsPageWithSegue:" id="2XG-c1-Qeh"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="FxM-rY-HGm">
+                                <rect key="frame" x="90" y="367" width="234" height="108"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="P17-ea-wAr" userLabel="Sound Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="234" height="36"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音效" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fkq-ay-eP3">
+                                                <rect key="frame" x="0.0" y="0.0" width="152" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-gX-vON" userLabel="Sound Switch">
+                                                <rect key="frame" x="185" y="0.0" width="51" height="36"/>
+                                                <connections>
+                                                    <action selector="switchSound:" destination="xhn-fN-8cx" eventType="valueChanged" id="OdC-JN-cVQ"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="FPl-Vy-RCR"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="w1S-Nl-5OB" userLabel="UIStyle Stack View">
+                                        <rect key="frame" x="0.0" y="72" width="234" height="36"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支援深色模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CbV-yk-Wiv">
+                                                <rect key="frame" x="0.0" y="0.0" width="152" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8v8-kZ-nC5" userLabel="UIStyle Switch">
+                                                <rect key="frame" x="185" y="0.0" width="51" height="36"/>
+                                                <connections>
+                                                    <action selector="switchSupportDarkMode:" destination="xhn-fN-8cx" eventType="valueChanged" id="JZR-Vt-GpG"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="R77-XI-35A"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FxM-rY-HGm" firstAttribute="centerY" secondItem="5SA-jc-0rB" secondAttribute="centerY" id="AyZ-lv-mCr"/>
+                            <constraint firstItem="7WG-iR-h0l" firstAttribute="leading" secondItem="5SA-jc-0rB" secondAttribute="leadingMargin" id="SYw-hl-XfP"/>
+                            <constraint firstItem="FxM-rY-HGm" firstAttribute="centerX" secondItem="5SA-jc-0rB" secondAttribute="centerX" id="bNh-Cj-fLP"/>
+                            <constraint firstItem="7WG-iR-h0l" firstAttribute="top" secondItem="Cjq-jw-xPg" secondAttribute="top" constant="20" id="cNm-kc-yQQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Cjq-jw-xPg"/>
+                    </view>
+                    <connections>
+                        <outlet property="soundSwitch" destination="uxL-gX-vON" id="kkn-eg-qCS"/>
+                        <outlet property="supportDarkModeSwitch" destination="8v8-kZ-nC5" id="2Q1-4V-XiJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UvM-Mg-cVh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="6Et-yA-50J" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="970" y="126"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0" width="300" height="300"/>
@@ -398,5 +533,6 @@
         <image name="Right" width="300" height="300"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="small-keyboard" width="300" height="300"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

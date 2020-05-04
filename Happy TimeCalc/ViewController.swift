@@ -151,34 +151,16 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
                         
         contentView.layoutIfNeeded()
-        
-//        print("In viewDidLayoutSubviews scrollView.frame.self: \(scrollView.frame.self)")
-        
+                
         separatorView.frame.origin.x = hrResult.frame.minX - 5
         separatorView.frame.size.width = secResult.frame.maxX - separatorView.frame.origin.x + 5
-        
-        print("scrollView.frame.height: \(scrollView.frame.height)")
-        print("In viewDidLayoutSubviews hrResult.frame.maxY: \(hrResult.frame.maxY)")
-        print("111contentView.frame.self: \(contentView.frame.self)")
-        print("contentView.frame.origin.y: \(contentView.frame.origin.y)")
-        print("scrollView.contentOffset: \(scrollView.contentOffset)")
-        print("111resultTopConstraint.constant: \(resultTopConstraint.constant), resultBottomConstraint.constant: \(resultBottomConstraint.constant)")
+
         if hrResult.frame.maxY <= scrollView.frame.height {
             resultBottomConstraint.constant = scrollView.frame.height - resultTopConstraint.constant - hrResult.frame.height
-//            contentView.frame.origin.y = 0
-//            contentView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
         }
         else {
             resultBottomConstraint.constant = 0//hrResult.frame.maxY - resultTopConstraint.constant - hrResult.frame.height
-//            contentView.frame = CGRect(x: 0, y: contentView.frame.origin.y - rowSpacing, width: scrollView.frame.width, height: scrollView.frame.height)
         }
-//        contentView.frame.origin.y = 0
-//        print("In viewDidLayoutSubviews hrResult.frame.maxY: \(hrResult.frame.maxY)")
-//        print("contentView.frame.height: \(contentView.frame.height)")
-        print("222contentView.frame.self: \(contentView.frame.self)")
-        print("222resultTopConstraint.constant: \(resultTopConstraint.constant), resultBottomConstraint.constant: \(resultBottomConstraint.constant)")
-//        print("resultBottomConstraint.constant: \(resultBottomConstraint.constant)")
-//        contentView.layoutIfNeeded()
         
         if isLayoutChanged {
             if (timeRows.count > 0) {
@@ -209,16 +191,24 @@ class ViewController: UIViewController {
         }
         
         isLayoutChanged = false
+        print("viewDidLayoutSubviews")
+//        contentView.layoutIfNeeded()
     }
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
                         
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
-        print("======= safeArea's top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
         
         isLayoutChanged = true
         contentView.layoutIfNeeded()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        print("traitCollectionDidChange")
+        focusedLabel?.backgroundColor = getFocusedBackgroundColor()
     }
 
     @objc func panKeyboard(recognizer: UILongPressGestureRecognizer) {
@@ -428,7 +418,7 @@ class ViewController: UIViewController {
     }
     
     @objc func addOrSubstract(_ sender: UIButton) {
-        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+//        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
         
         if sender.tag % 2 == 0 {
             self.operatorButtons[sender.tag].layer.borderWidth = 1
@@ -486,7 +476,7 @@ class ViewController: UIViewController {
             return
         }
         
-        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+//        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
         
         if label.tag != focusedLabel?.tag {
             for i in self.timeRows {
@@ -563,7 +553,7 @@ class ViewController: UIViewController {
     }
     
     func getFocusedBackgroundColor() -> UIColor {
-        if #available(iOS 12.0, *) {
+        if #available(iOS 13.0, *) {
             if self.traitCollection.userInterfaceStyle == .dark {
                 return focusedBackgroundColorInDarkMode
             }
@@ -631,7 +621,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculate(_ sender: UIButton) {
-        playSound(player: audioPlayer2, soundOn: appDelegate.soundSetting)
+//        playSound(player: audioPlayer2, soundOn: appDelegate.soundSetting)
         
         var totalSec = 0
         var totalSecN = 0
@@ -677,7 +667,7 @@ class ViewController: UIViewController {
         btn.layer.borderColor = nil
         
         if playSound {
-            self.playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+//            self.playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
         }
     }
     
