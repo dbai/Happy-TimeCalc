@@ -13,14 +13,11 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var soundSwitch: UISwitch!
     @IBOutlet weak var supportDarkModeSwitch: UISwitch!
     
-//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        soundSwitch.setOn(appDelegate.soundSetting, animated: false)
-//        supportDarkModeSwitch.setOn(appDelegate.supportDarkMode, animated: false)
         soundSwitch.setOn(sceneDelegate!.soundSetting, animated: false)
         supportDarkModeSwitch.setOn(sceneDelegate!.supportDarkMode, animated: false)
     }
@@ -28,8 +25,6 @@ class SettingsViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-//        appDelegate.soundSetting = soundSwitch.isOn
-//        appDelegate.supportDarkMode = supportDarkModeSwitch.isOn
         sceneDelegate!.soundSetting = soundSwitch.isOn
         sceneDelegate!.supportDarkMode = supportDarkModeSwitch.isOn
     }
@@ -44,21 +39,14 @@ class SettingsViewController: UIViewController {
         if !sender.isOn {
             print("Off")
             if #available(iOS 13.0, *) {
-//                appDelegate.window?.overrideUserInterfaceStyle = .light
                 sceneDelegate!.window?.overrideUserInterfaceStyle = .light
-//                window.overrideUserInterfaceStyle = .light
-//                self.overrideUserInterfaceStyle = .light
-                print("應該要打亮")
             } else {
                 // Fallback on earlier versions
             }
         }
         else {
-            print("On")
             if #available(iOS 13.0, *) {
-//                appDelegate.window?.overrideUserInterfaceStyle = .unspecified
                 sceneDelegate!.window?.overrideUserInterfaceStyle = .unspecified
-//                self.overrideUserInterfaceStyle = .unspecified
             } else {
                 
             }

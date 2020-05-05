@@ -20,16 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 //        guard let _ = (scene as? UIWindowScene) else { return }
-//        Self.shared = self
-        
-//        if let windowScene = scene as? UIWindowScene {
-//            window = UIWindow(windowScene: windowScene)
-//            window?.rootViewController = ViewController()
-//            window?.makeKeyAndVisible()
-//        }
-        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        window?.rootViewController = storyboard.instantiateInitialViewController()
         
         if UserDefaults.standard.value(forKey: "sound") == nil {
             UserDefaults.standard.set(true, forKey: "sound")
@@ -40,7 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set(true, forKey: "supportDarkMode")
         }
         supportDarkMode = UserDefaults.standard.bool(forKey: "supportDarkMode")
-        print("Support Dark Mode? \(supportDarkMode)")
         
         if #available(iOS 13.0, *) {
             if !supportDarkMode {

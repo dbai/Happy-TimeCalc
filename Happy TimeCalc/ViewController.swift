@@ -11,16 +11,10 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-//    @IBOutlet weak var label: UILabel!
-//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
-    
-//    @IBOutlet weak var hrLabel: UILabel!
-//    @IBOutlet weak var minLabel: UILabel!
-//    @IBOutlet weak var secLabel: UILabel!
     
     @IBOutlet weak var hrResult: UILabel!
     @IBOutlet weak var minResult: UILabel!
@@ -32,14 +26,11 @@ class ViewController: UIViewController {
     
     var safeArea: SafeArea!
 
-    @IBOutlet weak var dummyTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var dummyBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var resultTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var resultBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var addRowButton: UIButton!
     @IBOutlet weak var separatorView: SeparatorView!
-//    @IBOutlet weak var calculateButton: UIButton!
     
     var removeRowButtons = [UIButton]() // 刪列按鈕
     var operatorButtons = [UIButton]() // 時間列前的 + 和 - 按鈕
@@ -116,29 +107,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-//        print("In viewDidAppear, UIView's safeAreaInsets: \(self.view.safeAreaInsets)")
-//        print("scrollView.frame.width: \(scrollView.frame.width)")
-//        leftMarginWidthConstraint.constant = scrollView.frame.width * 0.1
-        
-        //////////////////label.center.y = scrollView.frame.height
-        
-        print("In viewDidAppear scrollView.frame.self: \(scrollView.frame.self)")
-//        print("label.frame.maxY: \(label.frame.maxY)")
-        
-//        print("dummyTopConstraint.constant: \(dummyTopConstraint.constant)")
-        
-        //////////////////if label.frame.maxY > scrollView.frame.height {
-            //dummyBottomContraint.constant = label.frame.maxY - dummyTopConstraint.constant
-        //}
-        contentView.setNeedsLayout() // 不加這行好像也沒差
-        
-//        print("dummyBottomContraint.constant: \(dummyBottomContraint.constant)")
-        
-//        print("UIView's frame.self: \(self.view.frame.self)")
-//        print("UIScreen.main.bounds: \(UIScreen.main.bounds)")
-//        print("UIView's safeAreaInsets: \(self.view.safeAreaInsets)")
-//        print("In viewDidAppear, scrollView.frame.self: \(scrollView.frame.self)")
-        
         addRow(UIButton())
         focusedLabel = timeRows[0][0]
         timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
@@ -192,8 +160,6 @@ class ViewController: UIViewController {
         }
         
         isLayoutChanged = false
-        print("viewDidLayoutSubviews")
-//        contentView.layoutIfNeeded()
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -263,9 +229,7 @@ class ViewController: UIViewController {
     
     @IBAction func addRow(_ sender: UIButton) {
         // 若有元件的 x, y 設為 0，則之後會在 viewDidLayoutSubviews() 中動態決定實際的值
-        
-//        contentView.layoutIfNeeded()
-        
+                
         // 增加 + 和 - 按鈕
         if timeRows.count != 0 {
             let operatorRow: [UIButton] = [UIButton(type: .custom), UIButton(type: .custom)]
@@ -338,8 +302,7 @@ class ViewController: UIViewController {
 
         // 調整結果列
         adjustSeparatorAndResultLabels(isAppend: true)
-//        refeshRemoveButtons()
-//
+
         btnTouchedUp(btn: sender, playSound: true)
     }
     
@@ -397,7 +360,6 @@ class ViewController: UIViewController {
 
         // 調整結果列
         adjustSeparatorAndResultLabels(isAppend: false)
-//        refeshRemoveButtons()
         
         // 檢查 focusedLabel 是否在要被移除的列中，如果是就把 focusedLabel 往上移一列
         for i in (n + 1) * 3...(n + 1) * 3 + 2 {
@@ -419,7 +381,6 @@ class ViewController: UIViewController {
     }
     
     @objc func addOrSubstract(_ sender: UIButton) {
-//        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
         playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         
         if sender.tag % 2 == 0 {
@@ -441,20 +402,12 @@ class ViewController: UIViewController {
             if isAppend {
                 separatorView.frame.origin.y += rowSpacing
                 resultTopConstraint.constant += rowSpacing
-
-                print("In adjust hrResult.frame.maxY: \(hrResult.frame.maxY)")
-//                if label.frame.maxY > scrollView.frame.height {
-//                    dummyBottomContraint.constant = label.frame.maxY - dummyTopConstraint.constant
-//                }
             }
             else {
                 resultTopConstraint.constant -= rowSpacing
                 separatorView.frame.origin.y -= rowSpacing
             }
         }
-        
-        // 調整計算與加列按鈕位置
-//        calculateButton.center.y = separatorView.center.y + 2
                 
         // 更新減列按鈕出現與否
         if removeRowButtons.count <= 1 {
@@ -468,7 +421,6 @@ class ViewController: UIViewController {
             }
         }
         
-//        contentView.setNeedsLayout() // 不加這行好像也沒差
         isLayoutChanged = true
         viewDidLayoutSubviews()
     }
@@ -478,7 +430,6 @@ class ViewController: UIViewController {
             return
         }
         
-//        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
         playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         
         if label.tag != focusedLabel?.tag {
@@ -624,7 +575,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculate(_ sender: UIButton) {
-//        playSound(player: audioPlayer2, soundOn: appDelegate.soundSetting)
         playSound(player: audioPlayer2, soundOn: sceneDelegate!.soundSetting)
         
         var totalSec = 0
@@ -671,7 +621,6 @@ class ViewController: UIViewController {
         btn.layer.borderColor = nil
         
         if playSound {
-//            self.playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
             self.playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         }
     }

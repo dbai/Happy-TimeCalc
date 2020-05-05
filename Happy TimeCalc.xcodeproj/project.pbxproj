@@ -66,10 +66,10 @@
 			children = (
 				3D44833D24592A7200B6FAAA /* Assets.xcassets */,
 				3DA680C6246014B7007CC6F0 /* Sounds */,
-				3D44833424592A7000B6FAAA /* AppDelegate.swift */,
-				3DA680CC2461661B007CC6F0 /* SceneDelegate.swift */,
 				3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */,
 				3D44833A24592A7000B6FAAA /* Main.storyboard */,
+				3D44833424592A7000B6FAAA /* AppDelegate.swift */,
+				3DA680CC2461661B007CC6F0 /* SceneDelegate.swift */,
 				3D44833824592A7000B6FAAA /* ViewController.swift */,
 				3D26896C245C778900C53179 /* SafeArea.swift */,
 				3D19C476245DAC000017D50C /* SeparatorView.swift */,
