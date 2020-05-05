@@ -11,12 +11,12 @@
 		3D1E6ACC2460557A00C86338 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1E6ACB2460557A00C86338 /* SettingsViewController.swift */; };
 		3D26896D245C778900C53179 /* SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26896C245C778900C53179 /* SafeArea.swift */; };
 		3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833424592A7000B6FAAA /* AppDelegate.swift */; };
-		3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833624592A7000B6FAAA /* SceneDelegate.swift */; };
 		3D44833924592A7000B6FAAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44833824592A7000B6FAAA /* ViewController.swift */; };
 		3D44833C24592A7000B6FAAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D44833A24592A7000B6FAAA /* Main.storyboard */; };
 		3D44833E24592A7200B6FAAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D44833D24592A7200B6FAAA /* Assets.xcassets */; };
 		3D44834124592A7200B6FAAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */; };
 		3DA680C7246014B7007CC6F0 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 3DA680C6246014B7007CC6F0 /* Sounds */; };
+		3DA680CD2461661B007CC6F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA680CC2461661B007CC6F0 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,13 +25,13 @@
 		3D26896C245C778900C53179 /* SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArea.swift; sourceTree = "<group>"; };
 		3D44833124592A7000B6FAAA /* Happy TimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Happy TimeCalc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D44833424592A7000B6FAAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3D44833624592A7000B6FAAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3D44833824592A7000B6FAAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3D44833B24592A7000B6FAAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D44833D24592A7200B6FAAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D44834024592A7200B6FAAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D44834224592A7200B6FAAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DA680C6246014B7007CC6F0 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		3DA680CC2461661B007CC6F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 				3D44833D24592A7200B6FAAA /* Assets.xcassets */,
 				3DA680C6246014B7007CC6F0 /* Sounds */,
 				3D44833424592A7000B6FAAA /* AppDelegate.swift */,
-				3D44833624592A7000B6FAAA /* SceneDelegate.swift */,
+				3DA680CC2461661B007CC6F0 /* SceneDelegate.swift */,
 				3D44833F24592A7200B6FAAA /* LaunchScreen.storyboard */,
 				3D44833A24592A7000B6FAAA /* Main.storyboard */,
 				3D44833824592A7000B6FAAA /* ViewController.swift */,
@@ -155,8 +155,8 @@
 				3D26896D245C778900C53179 /* SafeArea.swift in Sources */,
 				3D19C477245DAC000017D50C /* SeparatorView.swift in Sources */,
 				3D44833524592A7000B6FAAA /* AppDelegate.swift in Sources */,
-				3D44833724592A7000B6FAAA /* SceneDelegate.swift in Sources */,
 				3D1E6ACC2460557A00C86338 /* SettingsViewController.swift in Sources */,
+				3DA680CD2461661B007CC6F0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,22 +14,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var soundSetting = true
     var supportDarkMode = true
-    
-    private(set) static var shared: SceneDelegate?
-    
+        
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-        Self.shared = self
+//        guard let _ = (scene as? UIWindowScene) else { return }
+//        Self.shared = self
         
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = ViewController()
-            self.window = window
-            window.makeKeyAndVisible()
-        }
+//        if let windowScene = scene as? UIWindowScene {
+//            window = UIWindow(windowScene: windowScene)
+//            window?.rootViewController = ViewController()
+//            window?.makeKeyAndVisible()
+//        }
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        window?.rootViewController = storyboard.instantiateInitialViewController()
         
         if UserDefaults.standard.value(forKey: "sound") == nil {
             UserDefaults.standard.set(true, forKey: "sound")

@@ -12,7 +12,8 @@ import AVFoundation
 class ViewController: UIViewController {
 
 //    @IBOutlet weak var label: UILabel!
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -419,6 +420,7 @@ class ViewController: UIViewController {
     
     @objc func addOrSubstract(_ sender: UIButton) {
 //        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+        playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         
         if sender.tag % 2 == 0 {
             self.operatorButtons[sender.tag].layer.borderWidth = 1
@@ -477,6 +479,7 @@ class ViewController: UIViewController {
         }
         
 //        playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+        playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         
         if label.tag != focusedLabel?.tag {
             for i in self.timeRows {
@@ -622,6 +625,7 @@ class ViewController: UIViewController {
     
     @IBAction func calculate(_ sender: UIButton) {
 //        playSound(player: audioPlayer2, soundOn: appDelegate.soundSetting)
+        playSound(player: audioPlayer2, soundOn: sceneDelegate!.soundSetting)
         
         var totalSec = 0
         var totalSecN = 0
@@ -668,6 +672,7 @@ class ViewController: UIViewController {
         
         if playSound {
 //            self.playSound(player: audioPlayer, soundOn: appDelegate.soundSetting)
+            self.playSound(player: audioPlayer, soundOn: sceneDelegate!.soundSetting)
         }
     }
     

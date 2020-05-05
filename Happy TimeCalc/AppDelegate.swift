@@ -9,14 +9,18 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
 
-//    var window: UIWindow?
+    var window: UIWindow?
 
 //    var soundSetting = true
 //    var supportDarkMode = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+//        window = UIWindow()
+//        window?.rootViewController = ViewController()
+//        window?.makeKeyAndVisible()
         
 //        if UserDefaults.standard.value(forKey: "sound") == nil {
 //            UserDefaults.standard.set(true, forKey: "sound")
