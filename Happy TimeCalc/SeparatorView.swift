@@ -11,6 +11,7 @@ import UIKit
 class SeparatorView: UIView {
 
     override func draw(_ rect: CGRect) {
+        self.backgroundColor =  UIColor().withAlphaComponent(0.1)// .alpha = 0.2
         let path = UIBezierPath()
         
         if #available(iOS 13.0, *) {

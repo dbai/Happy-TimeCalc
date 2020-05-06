@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         keyboardGesture.allowableMovement = CGFloat.infinity
         keyboard.addGestureRecognizer(keyboardGesture)
         keyboard.isUserInteractionEnabled = true
-        view.bringSubviewToFront(keyboard)        
+//        view.bringSubviewToFront(keyboard)
         smallKeyboard.isHidden = true
         
         // 記得鍵盤上一次移動的位置
@@ -114,6 +114,25 @@ class ViewController: UIViewController {
 
         // For testing purpose only
 //        addMultipleRows(numberOfRows: 8)
+        
+        // 畫背景圖
+        let globalQueue = DispatchQueue.global()
+        globalQueue.async {
+            let numberOfStars = Int.random(in: 1..<10)
+            print("Number of stars: ", numberOfStars)
+//            for _ in 1...numberOfStars {
+            for i in 1...5 {
+                DispatchQueue.main.async {
+                    let imageView = UIImageView(image: UIImage(named: "Star"))
+                    let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
+                    let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
+//                    imageView.frame = CGRect(x: randomX, y: randomY, width: 50, height: 50)
+                    imageView.frame = CGRect(x: i * 50, y: i * 50 /*< 94 ? 94 : i * 50*/, width: 50, height: 50)
+                    imageView.alpha = 0.2
+                    self.contentView.insertSubview(imageView, at: 0/*self.view.subviews.firstIndex(of: self.scrollView)!*/)
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
