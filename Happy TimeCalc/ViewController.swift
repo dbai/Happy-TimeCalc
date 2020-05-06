@@ -106,7 +106,6 @@ class ViewController: UIViewController {
         audioPlayer2.prepareToPlay()
         
         let numberOfStars = Int.random(in: 3..<10)
-        print("Number of stars: ", numberOfStars)
         for _ in 1...numberOfStars {
             let star = UIImageView(image: UIImage(named: "Star"))
             let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
