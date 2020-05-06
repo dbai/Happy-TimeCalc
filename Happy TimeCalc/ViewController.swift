@@ -105,7 +105,7 @@ class ViewController: UIViewController {
         audioPlayer.prepareToPlay()
         audioPlayer2.prepareToPlay()
         
-        let numberOfStars = Int.random(in: 1..<3)
+        let numberOfStars = Int.random(in: 3..<10)
         print("Number of stars: ", numberOfStars)
         for _ in 1...numberOfStars {
             let star = UIImageView(image: UIImage(named: "Star"))
@@ -129,25 +129,7 @@ class ViewController: UIViewController {
         // For testing purpose only
 //        addMultipleRows(numberOfRows: 8)
         
-        // 畫背景圖
-//        let globalQueue = DispatchQueue.global()
-//        globalQueue.async {
-//            let numberOfStars = Int.random(in: 3..<10)
-//            print("Number of stars: ", numberOfStars)
-//            for _ in 1...numberOfStars {
-////            for i in 1...5 {
-////                DispatchQueue.main.sync {
-//                    let star = UIImageView(image: UIImage(named: "Star"))
-//                    let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
-//                    let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
-//                    star.frame = CGRect(x: randomX, y: randomY, width: 50, height: 50)
-////                    imageView.frame = CGRect(x: i * 50, y: i * 50 /*< 94 ? 94 : i * 50*/, width: 50, height: 50)
-//                    star.alpha = 0.2
-//                    self.stars.append(star)
-//                    /*self.*/contentView.insertSubview(star, at: 0/*self.view.subviews.firstIndex(of: self.scrollView)!*/)
-//                }
-//            }
-//        }
+        // 動畫
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.view.layoutIfNeeded()
         }
@@ -158,38 +140,19 @@ class ViewController: UIViewController {
     func animateStars() {
         let options: UIView.AnimationOptions = [/*.curveEaseInOut,*/
         .repeat,
-        .autoreverse,
-        .transitionCrossDissolve]
+        .autoreverse]
         
-//            UIView.animate(withDuration: 2,
-//                           delay: 0,
-//                           options: options,
-//                           animations: { [weak self] in
-//                for i in 0...self!.stars.count - 1 {
+        for i in 0...self.stars.count - 1 {
+            let randomDuration = Int.random(in: 2..<10)
+            let randomDelay = Int.random(in: 0..<7)
+            UIView.animate(withDuration: TimeInterval(randomDuration),
+                           delay: TimeInterval(randomDelay),
+                           options: options,
+                           animations: { [weak self] in
 //                    self?.stars[i].frame = CGRect(x: 100, y: 100, width: Int((self?.stars[i].frame.width)!), height: Int((self?.stars[i].frame.height)!))
-//                }
-//            }, completion: nil)
-//        for i in 0...self.stars.count - 1 {
-            UIView.transition(with: self.stars[0], duration: 5, options: options, animations: {
-                self.stars[0].isHidden = true
-            })
-//        }
-        
-//        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 3, delay: 0, options: options , animations: {
-//                for i in 0...self.stars.count - 1 {
-////                    if self.stars[i].isHidden == false {
-////                        self.stars[i].isHidden = true
-////                        print("Star \(i) is \(self.stars[i].isHidden)")
-////                    }
-////                    else {
-////                        self.stars[i].isHidden = false
-////                        print("Star \(i) is \(self.stars[i].isHidden)")
-////                    }
-//                    self.stars[i].frame.origin.x = 100
-//                    self.stars[i].frame.origin.y = 100
-//                }
-//            }, completion: nil)
-//        }
+                    self?.stars[i].alpha = 0.0
+            }, completion: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {
