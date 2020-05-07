@@ -76,19 +76,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fQH-zC-Qvh" userLabel="Hr Total">
-                                                <rect key="frame" x="38.666666666666664" y="95" width="40.999999999999993" height="27"/>
+                                                <rect key="frame" x="38.666666666666664" y="87" width="40.999999999999993" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AYJ-Si-hE9" userLabel="Min Total">
-                                                <rect key="frame" x="134" y="95" width="41" height="27"/>
+                                                <rect key="frame" x="134" y="87" width="41" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="I2C-Lp-KU2" userLabel="Sec Total">
-                                                <rect key="frame" x="229.66666666666666" y="95" width="40.999999999999972" height="27"/>
+                                                <rect key="frame" x="229.66666666666666" y="87" width="40.999999999999972" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -105,12 +105,12 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78E-Un-PJN" userLabel="Separator View" customClass="SeparatorView" customModule="Happy_TimeCalc" customModuleProvider="target">
-                                                <rect key="frame" x="42.333333333333329" y="60" width="255" height="20"/>
+                                                <rect key="frame" x="42.333333333333329" y="68" width="255" height="6"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRE-JU-ffw">
-                                                <rect key="frame" x="314.33333333333331" y="90.666666666666657" width="30" height="36"/>
+                                                <rect key="frame" x="314.33333333333331" y="82.666666666666657" width="30" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="Tky-X1-Mdc"/>
                                                     <constraint firstAttribute="height" constant="36" id="rUT-xc-OyM"/>
@@ -126,14 +126,14 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="fQH-zC-Qvh" firstAttribute="top" secondItem="gd9-6F-eQz" secondAttribute="top" constant="95" id="4IM-zD-y1v"/>
+                                            <constraint firstItem="fQH-zC-Qvh" firstAttribute="top" secondItem="gd9-6F-eQz" secondAttribute="top" constant="87" id="4IM-zD-y1v"/>
                                             <constraint firstItem="I2C-Lp-KU2" firstAttribute="centerY" secondItem="fQH-zC-Qvh" secondAttribute="centerY" id="5l1-qx-qnc"/>
                                             <constraint firstItem="AYJ-Si-hE9" firstAttribute="centerY" secondItem="fQH-zC-Qvh" secondAttribute="centerY" id="7UL-Eo-Up7"/>
                                             <constraint firstItem="AYJ-Si-hE9" firstAttribute="width" secondItem="fQH-zC-Qvh" secondAttribute="width" id="AQh-R1-RFP"/>
                                             <constraint firstItem="6G7-Wn-Xfa" firstAttribute="top" secondItem="gd9-6F-eQz" secondAttribute="top" constant="15" id="P7c-yj-kgV"/>
                                             <constraint firstItem="I2C-Lp-KU2" firstAttribute="height" secondItem="fQH-zC-Qvh" secondAttribute="height" id="baY-ql-UZF"/>
                                             <constraint firstItem="kRE-JU-ffw" firstAttribute="centerY" secondItem="fQH-zC-Qvh" secondAttribute="centerY" id="gHr-BH-Yqg"/>
-                                            <constraint firstAttribute="bottom" secondItem="fQH-zC-Qvh" secondAttribute="bottom" constant="596" id="gV3-Ks-wvl"/>
+                                            <constraint firstAttribute="bottom" secondItem="fQH-zC-Qvh" secondAttribute="bottom" constant="604" id="gV3-Ks-wvl"/>
                                             <constraint firstItem="I2C-Lp-KU2" firstAttribute="width" secondItem="fQH-zC-Qvh" secondAttribute="width" id="jOb-N1-2D2"/>
                                             <constraint firstItem="AYJ-Si-hE9" firstAttribute="height" secondItem="fQH-zC-Qvh" secondAttribute="height" id="jnl-FX-iy1"/>
                                         </constraints>
@@ -443,7 +443,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7WG-iR-h0l" userLabel="Close">
-                                <rect key="frame" x="16" y="20" width="17.333333333333329" height="22"/>
+                                <rect key="frame" x="15.999999999999998" y="20" width="17.333333333333329" height="22"/>
                                 <state key="normal" image="xmark" catalog="system"/>
                                 <connections>
                                     <segue destination="6Et-yA-50J" kind="unwind" unwindAction="backFromSettingsPageWithSegue:" id="2XG-c1-Qeh"/>

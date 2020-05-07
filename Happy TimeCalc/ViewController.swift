@@ -70,7 +70,6 @@ class ViewController: UIViewController {
     
     let userDefault = UserDefaults()
     
-    var starPool = [UIImageView]()
     var stars = [UIImageView]()
     
     override func viewDidLoad() {
@@ -107,26 +106,15 @@ class ViewController: UIViewController {
         audioPlayer2.prepareToPlay()
         
         // 星星
-        let starPoolCapacity = Int.random(in: 10..<50)
-        for _ in 0...starPoolCapacity - 1 {
+        let numberOfStars = Int.random(in: 10..<50)
+        for _ in 0...numberOfStars - 1 {
             let star = UIImageView(image: UIImage(named: "Star"))
-            star.alpha = 0.2
-            starPool.append(star)
-        }
-        let numberOfStars = Int.random(in: 5..<starPoolCapacity)
-        var resultSet = Set<UIImageView>()
-        while resultSet.count < numberOfStars {
-            let randomIndex = Int(arc4random_uniform(UInt32(starPool.count)))
-            resultSet.insert(starPool[randomIndex])
-        }
-        stars = Array(resultSet)
-        
-        for i in 0...stars.count - 1 {
             let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
             let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
-            stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
-            stars[i].alpha = 0.2
-            contentView.insertSubview(stars[i], at: 0)
+            star.frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
+            star.alpha = 0.2
+            stars.append(star)
+            contentView.insertSubview(star, at: 0)
         }
         
         // 汽車
@@ -163,6 +151,36 @@ class ViewController: UIViewController {
                     self?.stars[i].alpha = 0.0
                 }, completion: nil)
         }
+        
+        UIView.animate(withDuration: 1, delay: 10, options: .repeat, animations: { [weak self] in
+            for i in 0...self!.stars.count - 1 {
+                let randomX = Int(Float.random(in: 0..<Float((self?.contentView.frame.width)!)))
+                let randomY = Int(Float.random(in: 0..<Float((self?.contentView.frame.height)!)))
+                self?.stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
+            }
+        }, completion: nil)
+        
+//        let queue = DispatchQueue.global(qos: .background)
+//        queue.async {
+//            while true {
+////                queue.asyncAfter(deadline: .now() + 5) {
+//                self.delay(3, closure: {
+//                    DispatchQueue.main.async {
+//                        for i in 0...self.stars.count - 1 {
+//                            let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
+//                            let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
+//                            self.stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
+//                        }
+//                    }
+////                }
+//                })
+//            }
+//        }
+    }
+    
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     
     override func viewDidLayoutSubviews() {
