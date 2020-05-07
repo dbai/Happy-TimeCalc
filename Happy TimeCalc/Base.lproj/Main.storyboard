@@ -75,19 +75,26 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gd9-6F-eQz" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fQH-zC-Qvh" userLabel="Hr Result">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-g0-deS" userLabel="Dummy Label">
+                                                <rect key="frame" x="166" y="348" width="0.0" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fQH-zC-Qvh" userLabel="Hr Total">
                                                 <rect key="frame" x="38.666666666666664" y="95" width="40.999999999999993" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AYJ-Si-hE9" userLabel="Min Result">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AYJ-Si-hE9" userLabel="Min Total">
                                                 <rect key="frame" x="134" y="95" width="41" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="I2C-Lp-KU2" userLabel="Sec Result">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="I2C-Lp-KU2" userLabel="Sec Total">
                                                 <rect key="frame" x="229.66666666666666" y="95" width="40.999999999999972" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
@@ -117,9 +124,9 @@
                                                 </constraints>
                                                 <state key="normal" title="＝" image="Equal"/>
                                                 <connections>
-                                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="C6D-0g-zsO"/>
-                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="Bh7-ou-XtV"/>
-                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="WcO-j0-g9A"/>
+                                                    <action selector="btnTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="vk8-zO-c6B"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchCancel" id="jHU-7c-zNp"/>
+                                                    <action selector="btnTouchedUpWithBtn:playSound:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="kJk-rX-gQk"/>
                                                     <action selector="calculate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ncS-LF-xDx"/>
                                                 </connections>
                                             </button>
@@ -359,7 +366,7 @@
                             <constraint firstAttribute="bottom" secondItem="5C3-Hf-6pP" secondAttribute="bottom" id="c44-Hh-JaB"/>
                             <constraint firstItem="A54-fT-KcX" firstAttribute="height" secondItem="LfP-R7-9qg" secondAttribute="height" multiplier="0.857143" id="dEy-rJ-4tY"/>
                             <constraint firstItem="8XA-Ba-GNm" firstAttribute="height" secondItem="LfP-R7-9qg" secondAttribute="height" multiplier="0.857143" id="dF9-6x-juO"/>
-                            <constraint firstItem="vbY-vn-2pM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eJR-5w-HkK"/>
+                            <constraint firstItem="vbY-vn-2pM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eJR-5w-HkK"/>
                             <constraint firstItem="6G7-Wn-Xfa" firstAttribute="centerX" secondItem="sg2-1g-9ah" secondAttribute="centerX" id="eLg-nh-q5K"/>
                             <constraint firstItem="aBq-wi-ERU" firstAttribute="width" secondItem="6pK-dW-9fx" secondAttribute="width" id="f0r-VA-pob"/>
                             <constraint firstItem="Rck-iX-riB" firstAttribute="centerY" secondItem="vbY-vn-2pM" secondAttribute="centerY" id="gWh-xA-S6H"/>
@@ -419,15 +426,15 @@
                         <outlet property="btn8" destination="Qg3-FT-XBY" id="Bc6-x2-MmH"/>
                         <outlet property="btn9" destination="fah-KD-18x" id="LHX-1t-Mmd"/>
                         <outlet property="contentView" destination="gd9-6F-eQz" id="Qow-ri-Nec"/>
-                        <outlet property="hrResult" destination="fQH-zC-Qvh" id="rGN-p1-uFQ"/>
+                        <outlet property="hrTotal" destination="fQH-zC-Qvh" id="rGN-p1-uFQ"/>
                         <outlet property="keyboard" destination="vbY-vn-2pM" id="XyN-G4-0dB"/>
-                        <outlet property="minResult" destination="AYJ-Si-hE9" id="l8g-jR-dZD"/>
-                        <outlet property="resultBottomConstraint" destination="gV3-Ks-wvl" id="KFl-K6-Mga"/>
-                        <outlet property="resultTopConstraint" destination="4IM-zD-y1v" id="vOf-cu-47a"/>
+                        <outlet property="minTotal" destination="AYJ-Si-hE9" id="l8g-jR-dZD"/>
                         <outlet property="scrollView" destination="5C3-Hf-6pP" id="mcb-MC-ME9"/>
-                        <outlet property="secResult" destination="I2C-Lp-KU2" id="joO-Z9-gJf"/>
+                        <outlet property="secTotal" destination="I2C-Lp-KU2" id="joO-Z9-gJf"/>
                         <outlet property="separatorView" destination="78E-Un-PJN" id="j8M-T5-T3R"/>
                         <outlet property="smallKeyboard" destination="Rck-iX-riB" id="X72-A1-sGY"/>
+                        <outlet property="totalBottomConstraint" destination="gV3-Ks-wvl" id="KFl-K6-Mga"/>
+                        <outlet property="totalTopConstraint" destination="4IM-zD-y1v" id="vOf-cu-47a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -443,7 +450,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7WG-iR-h0l" userLabel="Close">
-                                <rect key="frame" x="15.999999999999998" y="20" width="17.333333333333329" height="22"/>
+                                <rect key="frame" x="16" y="20" width="17.333333333333329" height="22"/>
                                 <state key="normal" image="xmark" catalog="system"/>
                                 <connections>
                                     <segue destination="6Et-yA-50J" kind="unwind" unwindAction="backFromSettingsPageWithSegue:" id="2XG-c1-Qeh"/>

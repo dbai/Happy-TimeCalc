@@ -16,9 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
-    @IBOutlet weak var hrResult: UILabel!
-    @IBOutlet weak var minResult: UILabel!
-    @IBOutlet weak var secResult: UILabel!
+    @IBOutlet weak var hrTotal: UILabel!
+    @IBOutlet weak var minTotal: UILabel!
+    @IBOutlet weak var secTotal: UILabel!
     
     @IBOutlet weak var keyboard: UIView!
     @IBOutlet weak var smallKeyboard: UIImageView!
@@ -26,8 +26,8 @@ class ViewController: UIViewController {
     
     var safeArea: SafeArea!
 
-    @IBOutlet weak var resultTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var resultBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var totalTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var totalBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var addRowButton: UIButton!
     @IBOutlet weak var separatorView: SeparatorView!
@@ -72,6 +72,8 @@ class ViewController: UIViewController {
     
     var stars = [UIView]()
     
+//    @IBOutlet weak var keyboardCenterConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var keyboardBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -132,7 +134,7 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.view.layoutIfNeeded()
         }
-        
+
         animateStars()
     }
     
@@ -159,32 +161,32 @@ class ViewController: UIViewController {
                         
         contentView.layoutIfNeeded()
                 
-        separatorView.frame.origin.x = hrResult.frame.minX - 5
-        separatorView.frame.size.width = secResult.frame.maxX - separatorView.frame.origin.x + 5
+        separatorView.frame.origin.x = hrTotal.frame.minX - 5
+        separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
 
-        if hrResult.frame.maxY <= scrollView.frame.height {
-            resultBottomConstraint.constant = scrollView.frame.height - resultTopConstraint.constant - hrResult.frame.height
+        if hrTotal.frame.maxY <= scrollView.frame.height {
+            totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
         }
         else {
-            resultBottomConstraint.constant = 0//hrResult.frame.maxY - resultTopConstraint.constant - hrResult.frame.height
+            totalBottomConstraint.constant = 0//hrResult.frame.maxY - resultTopConstraint.constant - hrResult.frame.height
         }
         
         if isLayoutChanged {
             if (timeRows.count > 0) {
                 for i in 0...timeRows.count - 1 {
-                    timeRows[i][0].center.x = hrResult.center.x
-                    timeRows[i][1].center.x = minResult.center.x
-                    timeRows[i][2].center.x = secResult.center.x
+                    timeRows[i][0].center.x = hrTotal.center.x
+                    timeRows[i][1].center.x = minTotal.center.x
+                    timeRows[i][2].center.x = secTotal.center.x
                 }
             }
             
             if operatorButtons.count > 0 {
                 for i in 0...operatorButtons.count - 1 {
                     if i % 2 == 0 {
-                        operatorButtons[i].center.x = minResult.frame.minX
+                        operatorButtons[i].center.x = minTotal.frame.minX
                     }
                     else {
-                        operatorButtons[i].center.x = minResult.frame.maxX
+                        operatorButtons[i].center.x = minTotal.frame.maxX
                     }
                 }
             }
@@ -198,6 +200,11 @@ class ViewController: UIViewController {
         }
         
         isLayoutChanged = false
+        
+        // 下面這行目的是，避免每次有更動 Result 欄位（如按等於和清除鍵），鍵盤就會跳回初始位置
+        if let pos = keyboardPosition {
+            keyboard.center = pos
+        }
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -212,7 +219,6 @@ class ViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        print("traitCollectionDidChange")
         focusedLabel?.backgroundColor = getFocusedBackgroundColor()
     }
 
@@ -278,9 +284,9 @@ class ViewController: UIViewController {
             }
             else {
                 operatorRow[0].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 2].frame.origin.y + rowSpacing, width: operatorButtonSideLength, height: operatorButtonSideLength) //+
-                operatorRow[0].center.x = minResult.frame.minX
+                operatorRow[0].center.x = minTotal.frame.minX
                 operatorRow[1].frame = CGRect(x: 0, y: self.operatorButtons[self.operatorButtons.count - 1].frame.origin.y + rowSpacing, width: operatorButtonSideLength, height: operatorButtonSideLength) //-
-                operatorRow[1].center.x = minResult.frame.maxX
+                operatorRow[1].center.x = minTotal.frame.maxX
             }
 
             // 加進 operatorButtons 陣列以及畫面上
@@ -439,11 +445,11 @@ class ViewController: UIViewController {
         if timeRows.count >= 2 {
             if isAppend {
                 separatorView.frame.origin.y += rowSpacing
-                resultTopConstraint.constant += rowSpacing
+                totalTopConstraint.constant += rowSpacing
             }
             else {
-                resultTopConstraint.constant -= rowSpacing
                 separatorView.frame.origin.y -= rowSpacing
+                totalTopConstraint.constant -= rowSpacing
             }
         }
                 
@@ -594,9 +600,9 @@ class ViewController: UIViewController {
         
         self.validate(number: focusedLabel!.text!)
         
-        hrResult.text! = "00"
-        minResult.text! = "00"
-        secResult.text! = "00"
+        hrTotal.text! = "00"
+        minTotal.text! = "00"
+        secTotal.text! = "00"
     }
 
     func validate(number: String) {
@@ -614,17 +620,17 @@ class ViewController: UIViewController {
     
     @IBAction func calculate(_ sender: UIButton) {
         playSound(player: audioPlayer2, soundOn: sceneDelegate!.soundSetting)
-        
+
         var totalSec = 0
         var totalSecN = 0
-        
+
         for (i, row) in self.timeRows.enumerated() {
             let hrN = Int(row[0].text!)!
             let minN = Int(row[1].text!)!
             let secN = Int(row[2].text!)!
 
             totalSecN = hrN * 3600 + minN * 60 + secN
-            
+
             if i == 0 {
                 totalSec = totalSecN
             }
@@ -637,15 +643,15 @@ class ViewController: UIViewController {
                 }
             }
         }
-                
+
         let hrResult = totalSec / 3600
         let minResult = (totalSec % 3600) / 60
         let secResult = (totalSec % 3600) % 60
-        
-        self.hrResult.text = String(format: "%02d", hrResult)
-        self.minResult.text = String(format: "%02d", minResult)
-        self.secResult.text = String(format: "%02d", secResult)
-        
+
+        self.hrTotal.text = String(format: "%02d", hrResult)
+        self.minTotal.text = String(format: "%02d", minResult)
+        self.secTotal.text = String(format: "%02d", secResult)
+
         btnTouchedUp(btn: sender, playSound: false)
     }
     
