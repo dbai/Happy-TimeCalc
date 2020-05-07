@@ -70,10 +70,9 @@ class ViewController: UIViewController {
     
     let userDefault = UserDefaults()
     
-    var stars = [UIView]()
+    var starPool = [UIImageView]()
+    var stars = [UIImageView]()
     
-//    @IBOutlet weak var keyboardCenterConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var keyboardBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,16 +106,30 @@ class ViewController: UIViewController {
         audioPlayer.prepareToPlay()
         audioPlayer2.prepareToPlay()
         
-        let numberOfStars = Int.random(in: 3..<10)
-        for _ in 1...numberOfStars {
+        // 星星
+        let starPoolCapacity = Int.random(in: 10..<50)
+        for _ in 0...starPoolCapacity - 1 {
             let star = UIImageView(image: UIImage(named: "Star"))
+            star.alpha = 0.2
+            starPool.append(star)
+        }
+        let numberOfStars = Int.random(in: 5..<starPoolCapacity)
+        var resultSet = Set<UIImageView>()
+        while resultSet.count < numberOfStars {
+            let randomIndex = Int(arc4random_uniform(UInt32(starPool.count)))
+            resultSet.insert(starPool[randomIndex])
+        }
+        stars = Array(resultSet)
+        
+        for i in 0...stars.count - 1 {
             let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
             let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
-            star.frame = CGRect(x: randomX, y: randomY, width: 50, height: 50)
-            star.alpha = 0.2
-            self.stars.append(star)
-            contentView.insertSubview(star, at: 0)
+            stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
+            stars[i].alpha = 0.2
+            contentView.insertSubview(stars[i], at: 0)
         }
+        
+        // 汽車
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -144,15 +157,11 @@ class ViewController: UIViewController {
         .autoreverse]
         
         for i in 0...self.stars.count - 1 {
-            let randomDuration = Int.random(in: 2..<10)
-            let randomDelay = Int.random(in: 0..<7)
-            UIView.animate(withDuration: TimeInterval(randomDuration),
-                           delay: TimeInterval(randomDelay),
-                           options: options,
-                           animations: { [weak self] in
-//                    self?.stars[i].frame = CGRect(x: 100, y: 100, width: Int((self?.stars[i].frame.width)!), height: Int((self?.stars[i].frame.height)!))
+            let randomDuration = Int.random(in: 1..<20)
+            let randomDelay = Int.random(in: 0..<10)
+            UIView.animate(withDuration: TimeInterval(randomDuration), delay: TimeInterval(randomDelay), options: options, animations: { [weak self] in
                     self?.stars[i].alpha = 0.0
-            }, completion: nil)
+                }, completion: nil)
         }
     }
     
