@@ -12,10 +12,12 @@ import AVFoundation
 class ViewController: UIViewController {
 
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
-    
+
+    @IBOutlet weak var leftMargin: UIView!
+
     @IBOutlet weak var hrTotal: UILabel!
     @IBOutlet weak var minTotal: UILabel!
     @IBOutlet weak var secTotal: UILabel!
@@ -53,6 +55,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnBackspace: UIButton!
 
     var isLayoutChanged = false
+    var isSafeAreaChanged = false
 
     var timeLabelWidth: CGFloat = 54
     var timeLabelHeight: CGFloat = 34
@@ -104,20 +107,6 @@ class ViewController: UIViewController {
         audioPlayer2 = player2
         audioPlayer.prepareToPlay()
         audioPlayer2.prepareToPlay()
-        
-        // 星星
-        let numberOfStars = Int.random(in: 10..<50)
-        for _ in 0...numberOfStars - 1 {
-            let star = UIImageView(image: UIImage(named: "Star"))
-            let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
-            let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
-            star.frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
-            star.alpha = 0.2
-            stars.append(star)
-            contentView.insertSubview(star, at: 0)
-        }
-        
-        // 汽車
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -136,7 +125,33 @@ class ViewController: UIViewController {
             self?.view.layoutIfNeeded()
         }
 
-        animateStars()
+        // 星星
+        shuffleStars()
+    }
+    
+    func shuffleStars() {
+        if view.subviews[0] == leftMargin {
+            let numberOfStars = Int.random(in: 10..<50)
+            for _ in 0...numberOfStars - 1 {
+                let star = UIImageView(image: UIImage(named: "Star"))
+                let randomX = Int(Float.random(in: 0..<Float(UIScreen.main.bounds.width)))
+                let randomY = Int(Float.random(in: 0..<Float(UIScreen.main.bounds.height)))
+                star.frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
+                star.alpha = CGFloat(Float.random(in: 0..<0.4))
+                stars.append(star)
+                view.insertSubview(star, at: 0)
+            }
+            animateStars()
+        }
+        else {
+            let leftMarginIndex = view.subviews.firstIndex(of: leftMargin)
+            for i in 0...leftMarginIndex! - 1 {
+                stars[i].removeFromSuperview()
+            }
+            stars = [UIImageView]()
+            shuffleStars()
+        }
+        print("Star count: ", stars.count)
     }
     
     func animateStars() {
@@ -145,42 +160,12 @@ class ViewController: UIViewController {
         .autoreverse]
         
         for i in 0...self.stars.count - 1 {
-            let randomDuration = Int.random(in: 1..<20)
-            let randomDelay = Int.random(in: 0..<10)
+            let randomDuration = Int.random(in: 2..<20)
+            let randomDelay = Int.random(in: 2..<20)
             UIView.animate(withDuration: TimeInterval(randomDuration), delay: TimeInterval(randomDelay), options: options, animations: { [weak self] in
                     self?.stars[i].alpha = 0.0
                 }, completion: nil)
         }
-        
-        UIView.animate(withDuration: 1, delay: 10, options: .repeat, animations: { [weak self] in
-            for i in 0...self!.stars.count - 1 {
-                let randomX = Int(Float.random(in: 0..<Float((self?.contentView.frame.width)!)))
-                let randomY = Int(Float.random(in: 0..<Float((self?.contentView.frame.height)!)))
-                self?.stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
-            }
-        }, completion: nil)
-        
-//        let queue = DispatchQueue.global(qos: .background)
-//        queue.async {
-//            while true {
-////                queue.asyncAfter(deadline: .now() + 5) {
-//                self.delay(3, closure: {
-//                    DispatchQueue.main.async {
-//                        for i in 0...self.stars.count - 1 {
-//                            let randomX = Int(Float.random(in: 0..<Float(self.contentView.frame.width)))
-//                            let randomY = Int(Float.random(in: 0..<Float(self.contentView.frame.height)))
-//                            self.stars[i].frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
-//                        }
-//                    }
-////                }
-//                })
-//            }
-//        }
-    }
-    
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     
     override func viewDidLayoutSubviews() {
@@ -225,8 +210,12 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
         isLayoutChanged = false
+        
+        if (isSafeAreaChanged) {
+            shuffleStars()
+        }
+        isSafeAreaChanged = false
         
         // 下面這行目的是，避免每次有更動 Result 欄位（如按等於和清除鍵），鍵盤就會跳回初始位置
         if let pos = keyboardPosition {
@@ -240,6 +229,9 @@ class ViewController: UIViewController {
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
         
         isLayoutChanged = true
+//        contentView.layoutIfNeeded()
+        
+        isSafeAreaChanged = true
         contentView.layoutIfNeeded()
     }
     
