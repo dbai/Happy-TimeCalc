@@ -8,18 +8,22 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
 
     @IBOutlet weak var soundSwitch: UISwitch!
     @IBOutlet weak var supportDarkModeSwitch: UISwitch!
+    @IBOutlet weak var starCountSlider: UISlider!
     
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.presentationController?.delegate = self
+        
         soundSwitch.setOn(sceneDelegate!.soundSetting, animated: false)
         supportDarkModeSwitch.setOn(sceneDelegate!.supportDarkMode, animated: false)
+        starCountSlider.setValue(Float(sceneDelegate!.starCount), animated: false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -27,13 +31,14 @@ class SettingsViewController: UIViewController {
 
         sceneDelegate!.soundSetting = soundSwitch.isOn
         sceneDelegate!.supportDarkMode = supportDarkModeSwitch.isOn
+        sceneDelegate!.starCount = Int(starCountSlider.value)
     }
     
-    @IBAction func switchSound(_ sender: UISwitch) {
+    @IBAction func toggleSound(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: "sound")
     }
     
-    @IBAction func switchSupportDarkMode(_ sender: UISwitch) {
+    @IBAction func toggleSupportDarkMode(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: "supportDarkMode")
         
         if !sender.isOn {
@@ -53,10 +58,19 @@ class SettingsViewController: UIViewController {
         }
     }
             
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if let button = sender as? UIButton {
-    //            let mainPage = segue.destination as? Page1ViewController
-    //            mainPage?.soundSetting = soundSwitch.isOn
-    //        }
-    //    }
+    @IBAction func setStarCount(_ sender: UISlider) {
+        UserDefaults.standard.set(sender.value, forKey: "starCount")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let mainVC = segue.destination as? ViewController
+        mainVC?.isStarCountChanged = true
+        mainVC?.viewDidLayoutSubviews()
+    }
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        let mainVC = presentationController.presentingViewController as? ViewController
+        mainVC?.isStarCountChanged = true
+        mainVC?.viewDidLayoutSubviews()
+    }
 }

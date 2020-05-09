@@ -386,8 +386,8 @@
                                 <exclude reference="Zq4-xK-opJ"/>
                                 <exclude reference="hQd-CV-mn5"/>
                                 <exclude reference="uKp-iO-gKk"/>
-                                <exclude reference="Jhr-cV-6Ki"/>
                                 <exclude reference="eJR-5w-HkK"/>
+                                <exclude reference="Jhr-cV-6Ki"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -400,8 +400,8 @@
                         <variation key="heightClass=regular">
                             <mask key="constraints">
                                 <include reference="hQd-CV-mn5"/>
-                                <include reference="Jhr-cV-6Ki"/>
                                 <include reference="eJR-5w-HkK"/>
+                                <include reference="Jhr-cV-6Ki"/>
                             </mask>
                         </variation>
                     </view>
@@ -450,21 +450,21 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="FxM-rY-HGm">
-                                <rect key="frame" x="90" y="367" width="234" height="108"/>
+                                <rect key="frame" x="47.666666666666657" y="334" width="318.66666666666674" height="174"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="P17-ea-wAr" userLabel="Sound Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="234" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="318.66666666666669" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音效" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fkq-ay-eP3">
-                                                <rect key="frame" x="0.0" y="0.0" width="152" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="236.66666666666666" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-gX-vON" userLabel="Sound Switch">
-                                                <rect key="frame" x="185" y="0.0" width="51" height="36"/>
+                                                <rect key="frame" x="269.66666666666663" y="0.0" width="51" height="36"/>
                                                 <connections>
-                                                    <action selector="switchSound:" destination="xhn-fN-8cx" eventType="valueChanged" id="OdC-JN-cVQ"/>
+                                                    <action selector="toggleSound:" destination="xhn-fN-8cx" eventType="valueChanged" id="OdC-JN-cVQ"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
@@ -473,24 +473,53 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="w1S-Nl-5OB" userLabel="UIStyle Stack View">
-                                        <rect key="frame" x="0.0" y="72" width="234" height="36"/>
+                                        <rect key="frame" x="0.0" y="72" width="318.66666666666669" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支援深色模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CbV-yk-Wiv">
-                                                <rect key="frame" x="0.0" y="0.0" width="152" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="236.66666666666666" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8v8-kZ-nC5" userLabel="UIStyle Switch">
-                                                <rect key="frame" x="185" y="0.0" width="51" height="36"/>
+                                                <rect key="frame" x="269.66666666666663" y="0.0" width="51" height="36"/>
                                                 <connections>
-                                                    <action selector="switchSupportDarkMode:" destination="xhn-fN-8cx" eventType="valueChanged" id="JZR-Vt-GpG"/>
+                                                    <action selector="toggleSupportDarkMode:" destination="xhn-fN-8cx" eventType="valueChanged" id="JZR-Vt-GpG"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="R77-XI-35A"/>
                                         </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="snY-iq-HAE" userLabel="Stars Stack View">
+                                        <rect key="frame" x="0.0" y="144" width="318.66666666666669" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星數上限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE4-Fc-LaS">
+                                                <rect key="frame" x="0.0" y="0.0" width="89.333333333333329" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRV-j3-8UR">
+                                                <rect key="frame" x="105.33333333333334" y="0.0" width="10.333333333333329" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="jwz-hl-He7" userLabel="Star Count Slider">
+                                                <rect key="frame" x="129.66666666666669" y="0.0" width="154.33333333333331" height="31"/>
+                                                <connections>
+                                                    <action selector="setStarCount:" destination="xhn-fN-8cx" eventType="valueChanged" id="bIL-8o-2BK"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8Q-ai-imC">
+                                                <rect key="frame" x="298" y="0.0" width="20.666666666666686" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -501,11 +530,23 @@
                             <constraint firstItem="7WG-iR-h0l" firstAttribute="leading" secondItem="5SA-jc-0rB" secondAttribute="leadingMargin" id="SYw-hl-XfP"/>
                             <constraint firstItem="FxM-rY-HGm" firstAttribute="centerX" secondItem="5SA-jc-0rB" secondAttribute="centerX" id="bNh-Cj-fLP"/>
                             <constraint firstItem="7WG-iR-h0l" firstAttribute="top" secondItem="Cjq-jw-xPg" secondAttribute="top" constant="20" id="cNm-kc-yQQ"/>
+                            <constraint firstItem="FxM-rY-HGm" firstAttribute="width" secondItem="Cjq-jw-xPg" secondAttribute="width" multiplier="0.77" id="oCs-GI-nCn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Cjq-jw-xPg"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oCs-GI-nCn"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="oCs-GI-nCn"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="soundSwitch" destination="uxL-gX-vON" id="kkn-eg-qCS"/>
+                        <outlet property="starCountSlider" destination="jwz-hl-He7" id="1l4-0N-ymQ"/>
                         <outlet property="supportDarkModeSwitch" destination="8v8-kZ-nC5" id="2Q1-4V-XiJ"/>
                     </connections>
                 </viewController>
@@ -531,7 +572,7 @@
         <image name="Equal" width="300" height="300"/>
         <image name="Left" width="300" height="300"/>
         <image name="Right" width="300" height="300"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="gear" catalog="system" width="32" height="32"/>
         <image name="small-keyboard" width="300" height="300"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>

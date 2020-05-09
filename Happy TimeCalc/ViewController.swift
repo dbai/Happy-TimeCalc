@@ -9,6 +9,20 @@
 import UIKit
 import AVFoundation
 
+extension UIWindow {
+    static var isPortrait: Bool {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows
+                .first?
+                .windowScene?
+                .interfaceOrientation
+                .isPortrait ?? false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isPortrait
+        }
+    }
+}
+
 class ViewController: UIViewController {
 
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
@@ -24,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var keyboard: UIView!
     @IBOutlet weak var smallKeyboard: UIImageView!
-    var keyboardPosition: CGPoint?
+    var keyboardPosition: [CGPoint?] = [nil, nil]
     
     var safeArea: SafeArea!
 
@@ -40,8 +54,6 @@ class ViewController: UIViewController {
     var timeRows = [[UILabel]]()    
     var focusedLabel: UILabel?
 
-    @IBOutlet weak var leftButton: UIButton!
-    @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var btn3: UIButton!
@@ -54,8 +66,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var btn0: UIButton!
     @IBOutlet weak var btnBackspace: UIButton!
 
+    var isAppIniting = true
     var isLayoutChanged = false
-    var isSafeAreaChanged = false
+    var isStarCountChanged = false
 
     var timeLabelWidth: CGFloat = 54
     var timeLabelHeight: CGFloat = 34
@@ -108,82 +121,49 @@ class ViewController: UIViewController {
         audioPlayer.prepareToPlay()
         audioPlayer2.prepareToPlay()
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        addRow(UIButton())
-        focusedLabel = timeRows[0][0]
-        timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
-        addRow(UIButton())
-
-        // For testing purpose only
-//        addMultipleRows(numberOfRows: 8)
-        
-        // 動畫
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.view.layoutIfNeeded()
-        }
-
-        // 星星
-        shuffleStars()
-    }
     
-    func shuffleStars() {
-        if view.subviews[0] == leftMargin {
-            let numberOfStars = Int.random(in: 10..<50)
-            for _ in 0...numberOfStars - 1 {
-                let star = UIImageView(image: UIImage(named: "Star"))
-                let randomX = Int(Float.random(in: 0..<Float(UIScreen.main.bounds.width)))
-                let randomY = Int(Float.random(in: 0..<Float(UIScreen.main.bounds.height)))
-                star.frame = CGRect(x: randomX, y: randomY, width: 30, height: 30)
-                star.alpha = CGFloat(Float.random(in: 0..<0.4))
-                stars.append(star)
-                view.insertSubview(star, at: 0)
-            }
-            animateStars()
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+                        
+        safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
+        
+        isLayoutChanged = true
+
+        if isAppIniting {
+            isStarCountChanged = false
+            isAppIniting = false
         }
         else {
-            let leftMarginIndex = view.subviews.firstIndex(of: leftMargin)
-            for i in 0...leftMarginIndex! - 1 {
-                stars[i].removeFromSuperview()
-            }
-            stars = [UIImageView]()
-            shuffleStars()
+            isStarCountChanged = true
         }
-        print("Star count: ", stars.count)
     }
-    
-    func animateStars() {
-        let options: UIView.AnimationOptions = [/*.curveEaseInOut,*/
-        .repeat,
-        .autoreverse]
         
-        for i in 0...self.stars.count - 1 {
-            let randomDuration = Int.random(in: 2..<20)
-            let randomDelay = Int.random(in: 2..<20)
-            UIView.animate(withDuration: TimeInterval(randomDuration), delay: TimeInterval(randomDelay), options: options, animations: { [weak self] in
-                    self?.stars[i].alpha = 0.0
-                }, completion: nil)
-        }
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
                         
         contentView.layoutIfNeeded()
                 
-        separatorView.frame.origin.x = hrTotal.frame.minX - 5
-        separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
+//        separatorView.frame.origin.x = hrTotal.frame.minX - 5
+//        separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
 
-        if hrTotal.frame.maxY <= scrollView.frame.height {
-            totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
-        }
-        else {
-            totalBottomConstraint.constant = 0//hrResult.frame.maxY - resultTopConstraint.constant - hrResult.frame.height
-        }
+//        if hrTotal.frame.maxY <= scrollView.frame.height {
+//            totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
+//        }
+//        else {
+//            totalBottomConstraint.constant = 0
+//        }
         
         if isLayoutChanged {
+            separatorView.frame.origin.x = hrTotal.frame.minX - 5
+            separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
+            
+            if hrTotal.frame.maxY <= scrollView.frame.height {
+                totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
+            }
+            else {
+                totalBottomConstraint.constant = 0
+            }
+            
             if (timeRows.count > 0) {
                 for i in 0...timeRows.count - 1 {
                     timeRows[i][0].center.x = hrTotal.center.x
@@ -212,29 +192,105 @@ class ViewController: UIViewController {
         }
         isLayoutChanged = false
         
-        if (isSafeAreaChanged) {
+        if (isStarCountChanged) {
             shuffleStars()
         }
-        isSafeAreaChanged = false
+        isStarCountChanged = false
         
         // 下面這行目的是，避免每次有更動 Result 欄位（如按等於和清除鍵），鍵盤就會跳回初始位置
-        if let pos = keyboardPosition {
-            keyboard.center = pos
+        guard let pos = UIWindow.isPortrait ? keyboardPosition[0] : keyboardPosition[1] else { return }
+        keyboard.center = pos
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        addRow(UIButton())
+        focusedLabel = timeRows[0][0]
+        timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
+        addRow(UIButton())
+
+        // For testing purpose only
+//        addMultipleRows(numberOfRows: 8)
+        
+        // 動畫
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+
+        // 星星
+        shuffleStars()
+    }
+    
+    var numberOfStarsInLastRound = 0
+    var numberOfAnimationFinishedStars = 0
+    
+    func shuffleStars() {
+        if sceneDelegate!.starCount == 0 {
+            if stars.count != 0 { // 這條件發生在原本有星星，但設定上限為零後返回主畫面時
+                let leftMarginIndex = view.subviews.firstIndex(of: leftMargin)
+                for i in 0...leftMarginIndex! - 1 {
+                    stars[i].removeFromSuperview()
+                }
+                stars = [UIImageView]()
+            }
+            return
+        }
+
+        if view.subviews[0] == leftMargin {
+            let numberOfStars = Int.random(in: 1..<sceneDelegate!.starCount)
+            numberOfStarsInLastRound = numberOfStars
+            
+            for _ in 0...numberOfStars - 1 {
+                let star = UIImageView(image: UIImage(named: "Star"))
+                let randomX = Int(Float.random(in: 0..<Float(view.frame.width)))
+                let randomY = Int(Float.random(in: 0..<Float(view.frame.height)))
+                star.frame.size = CGSize(width: 30, height: 30)
+                star.center = CGPoint(x: randomX, y: randomY)
+                star.alpha = CGFloat(Float.random(in: 0.1..<0.4))
+                stars.append(star)
+                view.insertSubview(star, at: 0)
+            }
+            animateStars()
+        }
+        else {
+            let leftMarginIndex = view.subviews.firstIndex(of: leftMargin)
+            for i in 0...leftMarginIndex! - 1 {
+                stars[i].removeFromSuperview()
+            }
+            stars = [UIImageView]()
+            DispatchQueue.global().async {
+                while true {
+                    if self.numberOfAnimationFinishedStars == self.numberOfStarsInLastRound {
+                        DispatchQueue.main.sync {
+                            self.shuffleStars()
+                        }
+                        break
+                    }
+                }
+            }
+        }
+        print("Star count: ", stars.count)
+    }
+    
+    func animateStars() {
+        if stars.count == 0  {
+            return
+        }
+        numberOfAnimationFinishedStars = 0
+        let options: UIView.AnimationOptions = [.curveEaseInOut, .repeat, .autoreverse]
+        for i in 0...stars.count - 1 {
+            let randomDuration = Int.random(in: 2..<20)
+            let randomDelay = Int.random(in: 2..<20)
+        
+            UIView.animate(withDuration: TimeInterval(randomDuration), delay: TimeInterval(randomDelay), options: options, animations: { [weak self] in
+                self?.stars[i].alpha = 0.0
+            }, completion: { _ in
+                self.numberOfAnimationFinishedStars += 1
+            })
         }
     }
-    
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-                        
-        safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
         
-        isLayoutChanged = true
-//        contentView.layoutIfNeeded()
-        
-        isSafeAreaChanged = true
-        contentView.layoutIfNeeded()
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -276,17 +332,18 @@ class ViewController: UIViewController {
                 self.keyboard.alpha = 0.8
             })
             
-            keyboardPosition = keyboard.center
+            if (UIWindow.isPortrait) {
+                keyboardPosition[0] = keyboard.center
+            } else {
+                keyboardPosition[1] = keyboard.center
+            }
             
         default: break
         }
     }
     
     @objc func restoreKeyboardPosition() {
-        guard let pos = keyboardPosition else {
-            return
-        }
-        
+        guard let pos = UIWindow.isPortrait ? keyboardPosition[0] : keyboardPosition[1] else { return }
         keyboard.center = pos
     }
     

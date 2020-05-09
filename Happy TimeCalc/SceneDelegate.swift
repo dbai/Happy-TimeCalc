@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var soundSetting = true
     var supportDarkMode = true
+    var starCount = 10
         
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -22,14 +23,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        guard let _ = (scene as? UIWindowScene) else { return }
         
         if UserDefaults.standard.value(forKey: "sound") == nil {
-            UserDefaults.standard.set(true, forKey: "sound")
+            UserDefaults.standard.set(soundSetting, forKey: "sound")
+            print("sound: ", soundSetting)
         }
         soundSetting = UserDefaults.standard.bool(forKey: "sound")
         
         if UserDefaults.standard.value(forKey: "supportDarkMode") == nil {
-            UserDefaults.standard.set(true, forKey: "supportDarkMode")
+            UserDefaults.standard.set(supportDarkMode, forKey: "supportDarkMode")
         }
         supportDarkMode = UserDefaults.standard.bool(forKey: "supportDarkMode")
+        
+        if UserDefaults.standard.value(forKey: "starCount") == nil {
+            UserDefaults.standard.set(starCount, forKey: "starCount")
+            print("starCount: ", starCount)
+        }
+        starCount = UserDefaults.standard.integer(forKey: "starCount")
         
         if #available(iOS 13.0, *) {
             if !supportDarkMode {
