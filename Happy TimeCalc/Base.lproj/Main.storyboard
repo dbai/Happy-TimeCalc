@@ -530,17 +530,24 @@
                             <constraint firstItem="7WG-iR-h0l" firstAttribute="leading" secondItem="5SA-jc-0rB" secondAttribute="leadingMargin" id="SYw-hl-XfP"/>
                             <constraint firstItem="FxM-rY-HGm" firstAttribute="centerX" secondItem="5SA-jc-0rB" secondAttribute="centerX" id="bNh-Cj-fLP"/>
                             <constraint firstItem="7WG-iR-h0l" firstAttribute="top" secondItem="Cjq-jw-xPg" secondAttribute="top" constant="20" id="cNm-kc-yQQ"/>
+                            <constraint firstItem="FxM-rY-HGm" firstAttribute="width" secondItem="Cjq-jw-xPg" secondAttribute="width" multiplier="0.5" id="gHf-M6-dXd"/>
                             <constraint firstItem="FxM-rY-HGm" firstAttribute="width" secondItem="Cjq-jw-xPg" secondAttribute="width" multiplier="0.77" id="oCs-GI-nCn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Cjq-jw-xPg"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="gHf-M6-dXd"/>
                                 <exclude reference="oCs-GI-nCn"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <include reference="oCs-GI-nCn"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="gHf-M6-dXd"/>
                             </mask>
                         </variation>
                     </view>
