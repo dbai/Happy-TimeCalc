@@ -64,13 +64,13 @@ class SettingsViewController: UIViewController, UIAdaptivePresentationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let mainVC = segue.destination as? ViewController
-        mainVC?.isStarCountChanged = true
+        mainVC?.shouldChangeStars = true
         mainVC?.viewDidLayoutSubviews()
     }
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         let mainVC = presentationController.presentingViewController as? ViewController
-        mainVC?.isStarCountChanged = true
+        mainVC?.shouldChangeStars = true
         mainVC?.viewDidLayoutSubviews()
     }
 }

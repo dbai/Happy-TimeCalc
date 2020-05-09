@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var keyboard: UIView!
     @IBOutlet weak var smallKeyboard: UIImageView!
-    var keyboardPosition: [CGPoint?] = [nil, nil]
+    var keyboardPosition: [CGPoint?] = [nil, nil] // [position in Portrait mode, position in Landscape mode]
     
     var safeArea: SafeArea!
 
@@ -67,9 +67,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnBackspace: UIButton!
 
     var isAppIniting = true
-    var isLayoutChanged = false
-    var isStarCountChanged = false
-
+    var shouldChangeLayout = false
+    var shouldChangeStars = false
+    var numberOfStarsInLastRound = 0
+    var numberOfAnimationFinishedStars = 0
+    
     var timeLabelWidth: CGFloat = 54
     var timeLabelHeight: CGFloat = 34
     var rowSpacing: CGFloat = 75
@@ -127,14 +129,14 @@ class ViewController: UIViewController {
                         
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
         
-        isLayoutChanged = true
+        shouldChangeLayout = true
 
         if isAppIniting {
-            isStarCountChanged = false
+            shouldChangeStars = false
             isAppIniting = false
         }
         else {
-            isStarCountChanged = true
+            shouldChangeStars = true
         }
     }
         
@@ -153,7 +155,7 @@ class ViewController: UIViewController {
 //            totalBottomConstraint.constant = 0
 //        }
         
-        if isLayoutChanged {
+        if shouldChangeLayout {
             separatorView.frame.origin.x = hrTotal.frame.minX - 5
             separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
             
@@ -190,12 +192,12 @@ class ViewController: UIViewController {
                 }
             }
         }
-        isLayoutChanged = false
+        shouldChangeLayout = false
         
-        if (isStarCountChanged) {
+        if (shouldChangeStars) {
             shuffleStars()
         }
-        isStarCountChanged = false
+        shouldChangeStars = false
         
         // 下面這行目的是，避免每次有更動 Result 欄位（如按等於和清除鍵），鍵盤就會跳回初始位置
         guard let pos = UIWindow.isPortrait ? keyboardPosition[0] : keyboardPosition[1] else { return }
@@ -221,9 +223,6 @@ class ViewController: UIViewController {
         // 星星
         shuffleStars()
     }
-    
-    var numberOfStarsInLastRound = 0
-    var numberOfAnimationFinishedStars = 0
     
     func shuffleStars() {
         if sceneDelegate!.starCount == 0 {
@@ -295,6 +294,13 @@ class ViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         focusedLabel?.backgroundColor = getFocusedBackgroundColor()
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+       if motion == .motionShake {
+            shouldChangeStars = true
+            viewDidLayoutSubviews()
+       }
     }
 
     @objc func panKeyboard(recognizer: UILongPressGestureRecognizer) {
@@ -541,7 +547,7 @@ class ViewController: UIViewController {
             }
         }
         
-        isLayoutChanged = true
+        shouldChangeLayout = true
         viewDidLayoutSubviews()
     }
     
