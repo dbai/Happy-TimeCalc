@@ -102,8 +102,8 @@ class ViewController: UIViewController {
 //        view.bringSubviewToFront(keyboard)
         smallKeyboard.isHidden = true
         
-        // 記得鍵盤上一次移動的位置
-        NotificationCenter.default.addObserver(self, selector: #selector(restoreKeyboardPosition), name: UIApplication.willEnterForegroundNotification, object: nil)
+        // 記得鍵盤上一次移動的位置，以及重刷動畫
+        NotificationCenter.default.addObserver(self, selector: #selector(restoreActions), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         // 音效
         guard let _ = try? AVAudioSession.sharedInstance().setCategory(.ambient) else {
@@ -348,9 +348,11 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func restoreKeyboardPosition() {
+    @objc func restoreActions() {
         guard let pos = UIWindow.isPortrait ? keyboardPosition[0] : keyboardPosition[1] else { return }
         keyboard.center = pos
+        
+        shuffleStars()
     }
     
     @IBAction func addRow(_ sender: UIButton) {
