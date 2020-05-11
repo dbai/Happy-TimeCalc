@@ -1,0 +1,72 @@
+
+/* Class = "UIButton"; normalTitle = "⤵︎"; ObjectID = "6G7-Wn-Xfa"; */
+"6G7-Wn-Xfa.normalTitle" = "⤵︎";
+
+/* Class = "UILabel"; text = "小時"; ObjectID = "6pK-dW-9fx"; */
+"6pK-dW-9fx.text" = "小時";
+
+/* Class = "UILabel"; text = "00"; ObjectID = "AYJ-Si-hE9"; */
+"AYJ-Si-hE9.text" = "00";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "BwG-XU-71R"; */
+"BwG-XU-71R.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "支援深色模式"; ObjectID = "CbV-yk-Wiv"; */
+"CbV-yk-Wiv.text" = "支援深色模式";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "CbW-Zb-Voa"; */
+"CbW-Zb-Voa.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "音效"; ObjectID = "Fkq-ay-eP3"; */
+"Fkq-ay-eP3.text" = "音效";
+
+/* Class = "UILabel"; text = "00"; ObjectID = "I2C-Lp-KU2"; */
+"I2C-Lp-KU2.text" = "00";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "IRV-j3-8UR"; */
+"IRV-j3-8UR.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "KSy-45-f6Q"; */
+"KSy-45-f6Q.normalTitle" = "7";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "Qg3-FT-XBY"; */
+"Qg3-FT-XBY.normalTitle" = "8";
+
+/* Class = "UILabel"; text = "分鐘"; ObjectID = "Sxn-Oe-nXF"; */
+"Sxn-Oe-nXF.text" = "分鐘";
+
+/* Class = "UILabel"; text = "秒"; ObjectID = "aBq-wi-ERU"; */
+"aBq-wi-ERU.text" = "秒";
+
+/* Class = "UILabel"; text = "00"; ObjectID = "fQH-zC-Qvh"; */
+"fQH-zC-Qvh.text" = "00";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "fah-KD-18x"; */
+"fah-KD-18x.normalTitle" = "9";
+
+/* Class = "UILabel"; text = "50"; ObjectID = "g8Q-ai-imC"; */
+"g8Q-ai-imC.text" = "50";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "h2G-0P-q1r"; */
+"h2G-0P-q1r.normalTitle" = "0";
+
+/* Class = "UIButton"; normalTitle = "＝"; ObjectID = "kRE-JU-ffw"; */
+"kRE-JU-ffw.normalTitle" = "＝";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "kjn-xi-Pzw"; */
+"kjn-xi-Pzw.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "kuD-nZ-WcZ"; */
+"kuD-nZ-WcZ.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "星數上限"; ObjectID = "lE4-Fc-LaS"; */
+"lE4-Fc-LaS.text" = "星數上限";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "m1t-St-WR9"; */
+"m1t-St-WR9.normalTitle" = "1";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "py9-2i-Pa6"; */
+"py9-2i-Pa6.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "qmB-N5-4JW"; */
+"qmB-N5-4JW.normalTitle" = "5";
