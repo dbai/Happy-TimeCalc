@@ -105,7 +105,8 @@ class ViewController: UIViewController {
         // 記得鍵盤上一次移動的位置，以及重刷動畫
         NotificationCenter.default.addObserver(self, selector: #selector(restoreActions), name: UIApplication.willEnterForegroundNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        // iPad 的旋轉，不會改變 Safe Area，所以不能只靠呼叫 viewSafeAreaInsetsDidChange 來重繪畫面，必須要手動偵測旋轉及重繪
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceDidRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         
         // 音效
         guard let _ = try? AVAudioSession.sharedInstance().setCategory(.ambient) else {
@@ -130,7 +131,7 @@ class ViewController: UIViewController {
         super.viewSafeAreaInsetsDidChange()
                         
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
-        print("viewSafeAreaInsetsDidChange, safe area top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
+//        print("viewSafeAreaInsetsDidChange, safe area top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
         
         shouldChangeLayout = true
 
@@ -139,21 +140,21 @@ class ViewController: UIViewController {
             isAppIniting = false
         }
         else {
-//            shouldChangeStars = true
+            shouldChangeStars = true
         }
     }
     
-    @objc func rotated() {
-        print("Rotated.")
+    @objc func deviceDidRotated() {
+        shouldChangeLayout = true
         shouldChangeStars = true
-        viewDidLayoutSubviews()
     }
         
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-                        
+//        print("viewDidLayoutSubviews")
+
         contentView.layoutIfNeeded()
-                
+                        
 //        separatorView.frame.origin.x = hrTotal.frame.minX - 5
 //        separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
 
