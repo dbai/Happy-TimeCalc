@@ -559,6 +559,8 @@ class ViewController: UIViewController {
             }
         }
         
+        addRowButton.frame.origin.y = timeRows[0][0].frame.origin.y + timeLabelHeight / 2
+        
         shouldChangeLayout = true
         viewDidLayoutSubviews()
     }
