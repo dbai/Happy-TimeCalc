@@ -105,6 +105,8 @@ class ViewController: UIViewController {
         // 記得鍵盤上一次移動的位置，以及重刷動畫
         NotificationCenter.default.addObserver(self, selector: #selector(restoreActions), name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
         // 音效
         guard let _ = try? AVAudioSession.sharedInstance().setCategory(.ambient) else {
             print("Failed to set AVAudioSession catergory.")
@@ -128,6 +130,7 @@ class ViewController: UIViewController {
         super.viewSafeAreaInsetsDidChange()
                         
         safeArea = SafeArea(safeAreaInsets: self.view.safeAreaInsets)
+        print("viewSafeAreaInsetsDidChange, safe area top: \(safeArea.top), left: \(safeArea.left), bottom: \(safeArea.bottom), right: \(safeArea.right)")
         
         shouldChangeLayout = true
 
@@ -136,8 +139,14 @@ class ViewController: UIViewController {
             isAppIniting = false
         }
         else {
-            shouldChangeStars = true
+//            shouldChangeStars = true
         }
+    }
+    
+    @objc func rotated() {
+        print("Rotated.")
+        shouldChangeStars = true
+        viewDidLayoutSubviews()
     }
         
     override func viewDidLayoutSubviews() {
