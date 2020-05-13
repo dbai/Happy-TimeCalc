@@ -558,11 +558,9 @@ class ViewController: UIViewController {
                 removeRowButtons[i].isHidden = false
             }
         }
-        
-        addRowButton.frame.origin.y = timeRows[0][0].frame.origin.y + timeLabelHeight / 2
-        
+                
         shouldChangeLayout = true
-        viewDidLayoutSubviews()
+        viewDidLayoutSubviews()        
     }
     
     @objc func focus(_ sender: UITapGestureRecognizer) {
