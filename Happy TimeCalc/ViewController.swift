@@ -183,6 +183,7 @@ class ViewController: UIViewController {
                     timeRows[i][1].center.x = minTotal.center.x
                     timeRows[i][2].center.x = secTotal.center.x
                 }
+                print("timeRows[0][0].frame: ", timeRows[0][0].frame)
             }
             
             if operatorButtons.count > 0 {
@@ -404,7 +405,8 @@ class ViewController: UIViewController {
         // 增加時間欄位列
         let lastRowY = timeRows.count == 0 ? firstRowOriginY : timeRows[self.timeRows.count - 1][2].frame.origin.y + rowSpacing
         let row: [UILabel] = [UILabel(), UILabel(), UILabel()]
-        var timeLabelWidth = scrollView.frame.width * 0.144
+        print("hrTotal.frame.width: ", hrTotal.frame.width)
+        var timeLabelWidth = hrTotal.frame.width//scrollView.frame.width * 0.144
         var timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
         print("算完的欄位長寬：\(timeLabelWidth), \(timeLabelHeight)")
         row[0].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
@@ -422,7 +424,7 @@ class ViewController: UIViewController {
             label.font = .systemFont(ofSize: 30)
             label.adjustsFontSizeToFitWidth = true
             label.minimumScaleFactor = 0.45
-            label.autoresizingMask = .flexibleWidth
+//            label.autoresizingMask = .flexibleWidth
             label.layer.borderWidth = 1
             label.layer.borderColor = timeLabelBorderColor
             label.textAlignment = .center
