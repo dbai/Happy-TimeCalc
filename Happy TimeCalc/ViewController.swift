@@ -44,6 +44,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var totalTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalBottomConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var timeLabelAspectRatio: NSLayoutConstraint!
     
     @IBOutlet weak var addRowButton: UIButton!
     @IBOutlet weak var separatorView: SeparatorView!
@@ -72,8 +73,8 @@ class ViewController: UIViewController {
     var numberOfStarsInLastRound = 0
     var numberOfAnimationFinishedStars = 0
     
-    var timeLabelWidth: CGFloat = 54
-    var timeLabelHeight: CGFloat = 34
+//    var timeLabelWidth: CGFloat = 54
+//    var timeLabelHeight: CGFloat = 34
     var rowSpacing: CGFloat = 75
     var firstRowOriginY: CGFloat = 15
     var firstOpertorRowOriginY: CGFloat = 57
@@ -232,6 +233,8 @@ class ViewController: UIViewController {
 
         // 星星
         shuffleStars()
+        
+//        print(timeLabelAspectRatio.multiplier)
     }
     
     func shuffleStars() {
@@ -270,7 +273,8 @@ class ViewController: UIViewController {
             stars = [UIImageView]()
             DispatchQueue.global().async {
                 while true {
-                    if self.numberOfAnimationFinishedStars == self.numberOfStarsInLastRound {
+//                    if self.numberOfAnimationFinishedStars == self.numberOfStarsInLastRound {
+                    if self.numberOfAnimationFinishedStars != 0 {
                         DispatchQueue.main.sync {
                             self.shuffleStars()
                         }
@@ -296,6 +300,7 @@ class ViewController: UIViewController {
                 self?.stars[i].alpha = 0.0
             }, completion: { _ in
                 self.numberOfAnimationFinishedStars += 1
+                print("in completion")
             })
         }
     }
@@ -399,6 +404,9 @@ class ViewController: UIViewController {
         // 增加時間欄位列
         let lastRowY = timeRows.count == 0 ? firstRowOriginY : timeRows[self.timeRows.count - 1][2].frame.origin.y + rowSpacing
         let row: [UILabel] = [UILabel(), UILabel(), UILabel()]
+        var timeLabelWidth = scrollView.frame.width * 0.144
+        var timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
+        print("算完的欄位長寬：\(timeLabelWidth), \(timeLabelHeight)")
         row[0].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         row[1].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         row[2].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
@@ -411,7 +419,10 @@ class ViewController: UIViewController {
                 label.textColor = .systemGray
             }
             label.text = "00"
-            label.font = .systemFont(ofSize: 20)
+            label.font = .systemFont(ofSize: 30)
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.45
+            label.autoresizingMask = .flexibleWidth
             label.layer.borderWidth = 1
             label.layer.borderColor = timeLabelBorderColor
             label.textAlignment = .center
@@ -787,5 +798,10 @@ class ViewController: UIViewController {
         for _ in 0...numberOfRows - 1 {
             addRow(UIButton())
         }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("Received memory warning!!!")
     }
 }
