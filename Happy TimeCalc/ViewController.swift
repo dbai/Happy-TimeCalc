@@ -183,9 +183,31 @@ class ViewController: UIViewController {
     //        print("1. timeLabelHeight: ", timeLabelHeight)
             spaceAroundOperatorButton = scrollView.frame.height * 0.011
             spaceAroundSeparator = scrollView.frame.height * 0.018
+            
+            hrTotal.layer.borderWidth = 1
+            hrTotal.layer.borderColor = timeLabelBorderColor
+            minTotal.layer.borderWidth = 1
+            minTotal.layer.borderColor = timeLabelBorderColor
+            secTotal.layer.borderWidth = 1
+            secTotal.layer.borderColor = timeLabelBorderColor
+        }
+        else {
+            hrTotal.frame.size.width = timeRows[0][0].frame.width
+            minTotal.frame.size.width = timeRows[0][1].frame.width
+            secTotal.frame.size.width = timeRows[0][2].frame.width
+            hrTotal.frame.size.height = timeRows[0][0].frame.height
+            minTotal.frame.size.height = timeRows[0][1].frame.height
+            secTotal.frame.size.height = timeRows[0][2].frame.height
+            print("4. result size: ", minTotal.frame.size)
+            
+            hrTotal.font = .systemFont(ofSize: 40)
+            minTotal.font = .systemFont(ofSize: 40)
+            secTotal.font = .systemFont(ofSize: 40)
+//            minTotal.adjustsFontSizeToFitWidth = true
+//            label.minimumScaleFactor = 0.1
         }
         
-        if shouldChangeLayout {            
+        if shouldChangeLayout {
             separatorView.frame.origin.x = hrTotal.frame.minX - 5
             separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
 //            if timeRows.count >= 2 {
