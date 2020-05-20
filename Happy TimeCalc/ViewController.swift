@@ -52,6 +52,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalBottomConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var timeLabelAspectRatio: NSLayoutConstraint!
+    @IBOutlet weak var totalWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var totalHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var addRowButton: UIButton!
     @IBOutlet weak var separatorView: SeparatorView!
@@ -180,31 +182,26 @@ class ViewController: UIViewController {
         if inited == false {
             timeLabelWidth = /*hrTotal.frame.width*/scrollView.frame.width * 0.15
             timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
-    //        print("1. timeLabelHeight: ", timeLabelHeight)
             spaceAroundOperatorButton = scrollView.frame.height * 0.011
             spaceAroundSeparator = scrollView.frame.height * 0.018
-            
+        }
+        else {
             hrTotal.layer.borderWidth = 1
             hrTotal.layer.borderColor = timeLabelBorderColor
             minTotal.layer.borderWidth = 1
             minTotal.layer.borderColor = timeLabelBorderColor
             secTotal.layer.borderWidth = 1
             secTotal.layer.borderColor = timeLabelBorderColor
-        }
-        else {
-            hrTotal.frame.size.width = timeRows[0][0].frame.width
-            minTotal.frame.size.width = timeRows[0][1].frame.width
-            secTotal.frame.size.width = timeRows[0][2].frame.width
-            hrTotal.frame.size.height = timeRows[0][0].frame.height
-            minTotal.frame.size.height = timeRows[0][1].frame.height
-            secTotal.frame.size.height = timeRows[0][2].frame.height
-            print("4. result size: ", minTotal.frame.size)
+
+            hrTotal.text = "01"
+            minTotal.text = "02"
+            secTotal.text = "03"
+//            hrTotal.preferredMaxLayoutWidth = timeRows[0][0].frame.width
+//            hrTotal.adjustsFontSizeToFitWidth = true
+//            hrTotal.minimumScaleFactor = 0.1
             
-            hrTotal.font = .systemFont(ofSize: 40)
-            minTotal.font = .systemFont(ofSize: 40)
-            secTotal.font = .systemFont(ofSize: 40)
-//            minTotal.adjustsFontSizeToFitWidth = true
-//            label.minimumScaleFactor = 0.1
+            totalWidthConstraint.constant = timeRows[0][1].frame.width
+            totalHeightConstraint.constant = timeRows[0][1].frame.height
         }
         
         if shouldChangeLayout {
@@ -215,7 +212,12 @@ class ViewController: UIViewController {
 //            }
             
             if hrTotal.frame.maxY <= scrollView.frame.height {
-                totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
+//                print("2. timeLabelHeight: ", timeLabelHeight)
+//                print("2. minTotal.frame.height: ", minTotal.frame.height)
+//                print("2. totalTopConstraint: ", totalTopConstraint.constant)
+//                print("2. totalBottomConstraint: ", totalBottomConstraint.constant)
+                totalBottomConstraint.constant = scrollView.frame.height - safeArea.bottom - totalTopConstraint.constant - minTotal.frame.height
+//                print("2. scrollView.frame.height: ", scrollView.frame.height, ", totalBottomConstraint (after): ", totalBottomConstraint.constant)
             }
             else {
                 totalBottomConstraint.constant = 0
@@ -227,10 +229,9 @@ class ViewController: UIViewController {
                     timeRows[i][1].center.x = minTotal.center.x
                     timeRows[i][2].center.x = secTotal.center.x
                 }
-//                print("timeRows[0][0].frame: ", timeRows[0][0].frame)
                 
-                hrTotal.frame.size.width = timeLabelWidth //!!!
-                hrTotal.frame.size.height = timeLabelHeight //!!!
+//                totalWidthConstraint.constant = timeRows[0][1].frame.width
+//                totalHeightConstraint.constant = timeRows[0][1].frame.height
             }
             
             if operatorButtons.count > 0 {
@@ -271,11 +272,12 @@ class ViewController: UIViewController {
         timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
         addRow(UIButton())
 
-        separatorView.frame.origin.y = timeRows[timeRows.count - 1][0].frame.maxY + spaceAroundSeparator
-        totalTopConstraint.constant = separatorView.frame.maxY + spaceAroundSeparator
-        
+        if timeRows.count > 0 {
+            separatorView.frame.origin.y = timeRows[timeRows.count - 1][0].frame.maxY + spaceAroundSeparator
+            totalTopConstraint.constant = separatorView.frame.maxY + spaceAroundSeparator
+        }
         // For testing purpose only
-//        addMultipleRows(numberOfRows: 8)
+//        addMultipleRows(numberOfRows: 7)
         
         // 動畫
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -431,10 +433,10 @@ class ViewController: UIViewController {
                 
         // 增加 + 和 - 按鈕
         if timeRows.count != 0 {
-            print("2. timeLabelHeight: ", timeLabelHeight)
+//            print("2. timeLabelHeight: ", timeLabelHeight)
             firstOpertorRowOriginY = firstRowOriginY + timeLabelHeight + spaceAroundOperatorButton
             rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
-            print("3. rowSpacing: ", rowSpacing)
+//            print("3. rowSpacing: ", rowSpacing)
 
             let operatorRow: [UIButton] = [UIButton(type: .custom), UIButton(type: .custom)]
 
@@ -468,7 +470,7 @@ class ViewController: UIViewController {
 //        print("hrTotal.frame.width: ", hrTotal.frame.width)
 //        timeLabelWidth = /*hrTotal.frame.width*/scrollView.frame.width * 0.15
 //        timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
-//        print("1. timeLabelHeight: ", timeLabelHeight)
+//        print("1. timeLabelWidth: ", timeLabelWidth, ", timeLabelHeight: ", timeLabelHeight)
 //        print("算完的欄位長寬：\(timeLabelWidth), \(timeLabelHeight)")
         row[0].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         row[1].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
@@ -613,9 +615,8 @@ class ViewController: UIViewController {
     
     func adjustSeparatorAndResultLabels(isAppend: Bool) {
         
-        rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
-//        print("4. rowSpacing: ", rowSpacing)
-//        hrTotal.frame.size.width = timeRows[timeRows.count - 1][0].frame.width /!!!
+//        rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
+//        print("rowSpacing: ", rowSpacing)
 
         if timeRows.count >= 2 {
             if isAppend {
@@ -627,7 +628,12 @@ class ViewController: UIViewController {
                 totalTopConstraint.constant -= rowSpacing
             }
         }
-                
+
+//        print("1. timeLabelHeight: ", timeLabelHeight)
+//        print("1. minTotal.frame.height: ", minTotal.frame.height)
+//        print("1. totalTopConstraint: ", totalTopConstraint.constant)
+//        print("1. totalBottomConstraint: ", totalBottomConstraint.constant, "\n")
+        
         // 更新減列按鈕出現與否
         if removeRowButtons.count <= 1 {
             for (i, _) in removeRowButtons.enumerated() {
@@ -639,7 +645,7 @@ class ViewController: UIViewController {
                 removeRowButtons[i].isHidden = false
             }
         }
-                
+        
         shouldChangeLayout = true
         viewDidLayoutSubviews()        
     }
