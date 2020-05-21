@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UserDefaults.standard.value(forKey: "sound") == nil {
             UserDefaults.standard.set(soundSetting, forKey: "sound")
-            print("sound: ", soundSetting)
+//            print("sound: ", soundSetting)
         }
         soundSetting = UserDefaults.standard.bool(forKey: "sound")
         
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UserDefaults.standard.value(forKey: "starCount") == nil {
             UserDefaults.standard.set(starCount, forKey: "starCount")
-            print("starCount: ", starCount)
+//            print("starCount: ", starCount)
         }
         starCount = UserDefaults.standard.integer(forKey: "starCount")
         

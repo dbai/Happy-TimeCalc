@@ -23,13 +23,6 @@ extension UIWindow {
     }
 }
 
-class TimeLabel: UILabel {
-    override func drawText(in rect: CGRect) {
-        let insets: UIEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 1, right: 0)
-        super.drawText(in: rect.inset(by: insets))
-    }
-}
-
 class ViewController: UIViewController {
 
     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
@@ -47,11 +40,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var smallKeyboard: UIImageView!
     var keyboardPosition: [CGPoint?] = [nil, nil] // [position in Portrait mode, position in Landscape mode]
     
-    var safeArea: SafeArea!
+    var safeArea = SafeArea()
 
     @IBOutlet weak var totalTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalBottomConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var timeLabelAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var totalWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalHeightConstraint: NSLayoutConstraint!
     
@@ -61,8 +53,8 @@ class ViewController: UIViewController {
     var removeRowButtons = [UIButton]() // 刪列按鈕
     var operatorButtons = [UIButton]() // 時間列前的 + 和 - 按鈕
     var operators = [Bool]() // 每列選到的運算元，true for +, false for -
-    var timeRows = [[TimeLabel]]()
-    var focusedLabel: TimeLabel?
+    var timeRows = [[UILabel]]()
+    var focusedLabel: UILabel?
 
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
@@ -74,7 +66,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btn8: UIButton!
     @IBOutlet weak var btn9: UIButton!
     @IBOutlet weak var btn0: UIButton!
-    @IBOutlet weak var btnBackspace: UIButton!
+//    @IBOutlet weak var btnBackspace: UIButton!
 
     var isAppIniting = true
     var shouldChangeLayout = false
@@ -83,18 +75,23 @@ class ViewController: UIViewController {
 //    var numberOfAnimationFinishedStars = 0
     var animationCompletion = false
     
-    var timeLabelWidth: CGFloat = 54
-    var timeLabelHeight: CGFloat = 34
-    var firstRowOriginY: CGFloat = 15
-    var spaceAroundOperatorButton: CGFloat = 8 //scrollView.frame.height * 0.11
-    var spaceAroundSeparator: CGFloat = 13
-    var firstOpertorRowOriginY: CGFloat = 57 // 15 + 34 + 8, firstRowOriginY + timeLabelHeight + spaceAroundOperatorButton
-    var operatorButtonSideLength: CGFloat = 25
-    var rowSpacing: CGFloat = 75 // 34 + 8 + 25 + 8, timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
-    var focusedBackgroundColor = UIColor(red: 230 / 255.0, green: 230 / 255.0, blue: 230 / 255.0, alpha: 1.0)
-    var focusedBackgroundColorInDarkMode = UIColor(red: 130 / 255.0, green: 130 / 255.0, blue: 130 / 255.0, alpha: 1.0)
-    var timeLabelBorderColor = UIColor.lightGray.cgColor
-    var btnBorderColor = UIColor.blue.cgColor
+    let firstRowOriginY: CGFloat = 15
+    var spaceAroundOperatorButton: CGFloat!
+    let spaceAroundOperatorButtonProportion: CGFloat = 0.011
+    var spaceAroundSeparator: CGFloat!
+    let spaceAroundSeparatorProportion: CGFloat = 0.02
+    var firstOpertorRowOriginY: CGFloat!
+    var operatorButtonSideLength: CGFloat!// = 25
+    let operatorButtonSideLengthProportion: CGFloat = 0.032
+    var rowSpacing: CGFloat!
+    let focusedBackgroundColor = UIColor(red: 230 / 255.0, green: 230 / 255.0, blue: 230 / 255.0, alpha: 1.0)
+    let focusedBackgroundColorInDarkMode = UIColor(red: 130 / 255.0, green: 130 / 255.0, blue: 130 / 255.0, alpha: 1.0)
+    let timeLabelBorderColor = UIColor.lightGray.cgColor
+    var timeLabelWidth: CGFloat!
+    var timeLabelHeight: CGFloat!
+    let timeLabelAspectRatio: CGFloat = 1.64
+    let timeLabelWidthProportion: CGFloat = 0.15
+    let btnBorderColor = UIColor.blue.cgColor
 
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
@@ -112,7 +109,6 @@ class ViewController: UIViewController {
         keyboardGesture.allowableMovement = CGFloat.infinity
         keyboard.addGestureRecognizer(keyboardGesture)
         keyboard.isUserInteractionEnabled = true
-//        view.bringSubviewToFront(keyboard)
         smallKeyboard.isHidden = true
         
         // 記得鍵盤上一次移動的位置，以及重刷動畫
@@ -162,62 +158,17 @@ class ViewController: UIViewController {
         shouldChangeStars = true
     }
         
-    var inited = false
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        print("viewDidLayoutSubviews, ", scrollView.frame)
 
         contentView.layoutIfNeeded()
-                        
-//        separatorView.frame.origin.x = hrTotal.frame.minX - 5
-//        separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
 
-//        if hrTotal.frame.maxY <= scrollView.frame.height {
-//            totalBottomConstraint.constant = scrollView.frame.height - totalTopConstraint.constant - hrTotal.frame.height
-//        }
-//        else {
-//            totalBottomConstraint.constant = 0
-//        }
-        
-        if inited == false {
-            timeLabelWidth = /*hrTotal.frame.width*/scrollView.frame.width * 0.15
-            timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
-            spaceAroundOperatorButton = scrollView.frame.height * 0.011
-            spaceAroundSeparator = scrollView.frame.height * 0.018
-        }
-        else {
-            hrTotal.layer.borderWidth = 1
-            hrTotal.layer.borderColor = timeLabelBorderColor
-            minTotal.layer.borderWidth = 1
-            minTotal.layer.borderColor = timeLabelBorderColor
-            secTotal.layer.borderWidth = 1
-            secTotal.layer.borderColor = timeLabelBorderColor
-
-            hrTotal.text = "01"
-            minTotal.text = "02"
-            secTotal.text = "03"
-//            hrTotal.preferredMaxLayoutWidth = timeRows[0][0].frame.width
-//            hrTotal.adjustsFontSizeToFitWidth = true
-//            hrTotal.minimumScaleFactor = 0.1
-            
-            totalWidthConstraint.constant = timeRows[0][1].frame.width
-            totalHeightConstraint.constant = timeRows[0][1].frame.height
-        }
-        
         if shouldChangeLayout {
             separatorView.frame.origin.x = hrTotal.frame.minX - 5
             separatorView.frame.size.width = secTotal.frame.maxX - separatorView.frame.origin.x + 5
-//            if timeRows.count >= 2 {
-//                separatorView.frame.origin.y = timeRows[timeRows.count - 1][0].frame.maxY + spaceAroundOperatorButton
-//            }
             
             if hrTotal.frame.maxY <= scrollView.frame.height {
-//                print("2. timeLabelHeight: ", timeLabelHeight)
-//                print("2. minTotal.frame.height: ", minTotal.frame.height)
-//                print("2. totalTopConstraint: ", totalTopConstraint.constant)
-//                print("2. totalBottomConstraint: ", totalBottomConstraint.constant)
                 totalBottomConstraint.constant = scrollView.frame.height - safeArea.bottom - totalTopConstraint.constant - minTotal.frame.height
-//                print("2. scrollView.frame.height: ", scrollView.frame.height, ", totalBottomConstraint (after): ", totalBottomConstraint.constant)
             }
             else {
                 totalBottomConstraint.constant = 0
@@ -229,9 +180,6 @@ class ViewController: UIViewController {
                     timeRows[i][1].center.x = minTotal.center.x
                     timeRows[i][2].center.x = secTotal.center.x
                 }
-                
-//                totalWidthConstraint.constant = timeRows[0][1].frame.width
-//                totalHeightConstraint.constant = timeRows[0][1].frame.height
             }
             
             if operatorButtons.count > 0 {
@@ -267,6 +215,16 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        timeLabelWidth = scrollView.frame.width * timeLabelWidthProportion
+        timeLabelHeight = timeLabelWidth / timeLabelAspectRatio
+        spaceAroundOperatorButton = scrollView.frame.height * spaceAroundOperatorButtonProportion
+        spaceAroundSeparator = scrollView.frame.height * spaceAroundSeparatorProportion
+        firstOpertorRowOriginY = firstRowOriginY + timeLabelHeight + spaceAroundOperatorButton
+        operatorButtonSideLength = scrollView.frame.height * operatorButtonSideLengthProportion
+        rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
+        totalWidthConstraint.constant = timeLabelWidth
+        totalHeightConstraint.constant = timeLabelHeight
+        
         addRow(UIButton())
         focusedLabel = timeRows[0][0]
         timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
@@ -286,10 +244,6 @@ class ViewController: UIViewController {
 
         // 星星
         shuffleStars()
-        
-//        print(timeLabelAspectRatio.multiplier)
-        
-        inited = true
     }
     
     func shuffleStars() {
@@ -304,7 +258,7 @@ class ViewController: UIViewController {
             return
         }
 
-        if view.subviews[0] == leftMargin {
+        if view.subviews[0] == leftMargin { // 把所有星星加到 superview 的子層的最前面
             let numberOfStars = Int.random(in: 1..<sceneDelegate!.starCount)
 //            numberOfStarsInLastRound = numberOfStars
             
@@ -320,7 +274,7 @@ class ViewController: UIViewController {
             }
             animateStars()
         }
-        else {
+        else { // 刪除所有星星，然後重新加入一批
             let leftMarginIndex = view.subviews.firstIndex(of: leftMargin)
             for i in 0...leftMarginIndex! - 1 {
                 stars[i].removeFromSuperview()
@@ -330,7 +284,7 @@ class ViewController: UIViewController {
                 while true {
 //                    if self.numberOfAnimationFinishedStars == self.numberOfStarsInLastRound {
 //                    if self.numberOfAnimationFinishedStars != 0 {
-                    if self.animationCompletion == true {
+                    if self.animationCompletion == true { // 只要有一個之前的星星動畫 callback，就算結束，然後加批新的
                         DispatchQueue.main.sync {
                             self.shuffleStars()
                         }
@@ -339,7 +293,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        print("Star count: ", stars.count)
+//        print("Star count: ", stars.count)
     }
     
     func animateStars() {
@@ -357,7 +311,7 @@ class ViewController: UIViewController {
                 self?.stars[i].alpha = 0.0
             }, completion: { _ in
 //                self.numberOfAnimationFinishedStars += 1
-                self.animationCompletion = true
+                self.animationCompletion = true // 只要有一個星星動畫 callback，就算結束
 //                print("in completion")
             })
         }
@@ -433,11 +387,6 @@ class ViewController: UIViewController {
                 
         // 增加 + 和 - 按鈕
         if timeRows.count != 0 {
-//            print("2. timeLabelHeight: ", timeLabelHeight)
-            firstOpertorRowOriginY = firstRowOriginY + timeLabelHeight + spaceAroundOperatorButton
-            rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
-//            print("3. rowSpacing: ", rowSpacing)
-
             let operatorRow: [UIButton] = [UIButton(type: .custom), UIButton(type: .custom)]
 
             if (self.operatorButtons.count == 0) {
@@ -466,12 +415,7 @@ class ViewController: UIViewController {
         
         // 增加時間欄位列
         let lastRowY = timeRows.count == 0 ? firstRowOriginY : timeRows[self.timeRows.count - 1][2].frame.origin.y + rowSpacing
-        let row: [TimeLabel] = [TimeLabel(), TimeLabel(), TimeLabel()]
-//        print("hrTotal.frame.width: ", hrTotal.frame.width)
-//        timeLabelWidth = /*hrTotal.frame.width*/scrollView.frame.width * 0.15
-//        timeLabelHeight = timeLabelWidth / 1.64//timeLabelAspectRatio.multiplier
-//        print("1. timeLabelWidth: ", timeLabelWidth, ", timeLabelHeight: ", timeLabelHeight)
-//        print("算完的欄位長寬：\(timeLabelWidth), \(timeLabelHeight)")
+        let row: [UILabel] = [UILabel(), UILabel(), UILabel()]
         row[0].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         row[1].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
         row[2].frame = CGRect(x: 0, y: lastRowY, width: timeLabelWidth, height: timeLabelHeight)
@@ -486,9 +430,7 @@ class ViewController: UIViewController {
             label.text = "00"
             label.font = .systemFont(ofSize: 40)
             label.adjustsFontSizeToFitWidth = true
-            label.minimumScaleFactor = 0.1
-//            label.autoresizingMask = .flexibleWidth
-//            print("intrinsicContentSize: ", label.intrinsicContentSize)
+            label.minimumScaleFactor = 0.25
             label.numberOfLines = 0
             label.layer.borderWidth = 1
             label.layer.borderColor = timeLabelBorderColor
@@ -505,8 +447,8 @@ class ViewController: UIViewController {
             let removeButton = UIButton(type: .system)
             removeButton.setTitle("⤴︎", for: .normal)
             removeButton.setTitleColor(.systemBlue, for: .normal)
-            removeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-            removeButton.frame = CGRect(x: 0, y: 0/*removeRowButtons.count == 0 ? 155 : self.removeRowButtons[self.removeRowButtons.count - 1].frame.origin.y + rowSpacing*/, width: addRowButton.frame.size.width, height: addRowButton.frame.size.height)
+            removeButton.titleLabel?.font = addRowButton.titleLabel!.font
+            removeButton.frame = CGRect(x: 0, y: 0, width: addRowButton.frame.size.width, height: addRowButton.frame.size.height)
             removeButton.tag = self.removeRowButtons.count
             removeButton.addTarget(self, action: #selector(removeRow(_:)), for: .touchUpInside)
             removeButton.addTarget(self, action: #selector(btnTouchedDown(_:)), for: .touchDown)
@@ -614,10 +556,6 @@ class ViewController: UIViewController {
     }
     
     func adjustSeparatorAndResultLabels(isAppend: Bool) {
-        
-//        rowSpacing = timeLabelHeight + spaceAroundOperatorButton * 2 + operatorButtonSideLength
-//        print("rowSpacing: ", rowSpacing)
-
         if timeRows.count >= 2 {
             if isAppend {
                 separatorView.frame.origin.y += rowSpacing
@@ -651,7 +589,7 @@ class ViewController: UIViewController {
     }
     
     @objc func focus(_ sender: UITapGestureRecognizer) {
-        guard let label = sender.view as? TimeLabel else {
+        guard let label = sender.view as? UILabel else {
             return
         }
         
@@ -681,7 +619,7 @@ class ViewController: UIViewController {
         
         if sender.tag == 0 {
             if self.focusedLabel!.tag > 0 {
-                var tmp: TimeLabel?
+                var tmp: UILabel?
                 outerLoop: for i in timeRows {
                     for j in i {
                         if j.tag + 1 == self.focusedLabel!.tag { // the new focused label

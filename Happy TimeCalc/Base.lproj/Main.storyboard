@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -96,7 +96,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6G7-Wn-Xfa">
                                                 <rect key="frame" x="351" y="15.000000000000004" width="30" height="48.333333333333343"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="⤵︎"/>
                                                 <connections>
                                                     <action selector="addRow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YDD-kc-fgN"/>
@@ -330,11 +330,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="D0b-eB-LCz" secondAttribute="trailing" multiplier="1.6" id="0BZ-j7-vHm"/>
                             <constraint firstItem="A54-fT-KcX" firstAttribute="centerY" secondItem="LfP-R7-9qg" secondAttribute="centerY" id="2ry-PC-80j"/>
                             <constraint firstItem="6pK-dW-9fx" firstAttribute="height" secondItem="Sxn-Oe-nXF" secondAttribute="height" id="3o2-Fl-nTv"/>
+                            <constraint firstItem="6G7-Wn-Xfa" firstAttribute="height" secondItem="Sxn-Oe-nXF" secondAttribute="height" multiplier="1.5" id="4Js-CK-NIl"/>
                             <constraint firstItem="aBq-wi-ERU" firstAttribute="leading" secondItem="649-pU-kSo" secondAttribute="trailing" id="50j-Gx-dV9"/>
                             <constraint firstItem="A54-fT-KcX" firstAttribute="width" secondItem="8XA-Ba-GNm" secondAttribute="width" multiplier="0.8" id="7qh-or-qXx"/>
                             <constraint firstItem="6G7-Wn-Xfa" firstAttribute="leading" secondItem="A54-fT-KcX" secondAttribute="trailing" id="8lI-JX-xC6"/>
                             <constraint firstItem="LfP-R7-9qg" firstAttribute="width" secondItem="hec-6p-un2" secondAttribute="width" multiplier="0.1" priority="999" id="A44-iy-fwo"/>
-                            <constraint firstItem="6G7-Wn-Xfa" firstAttribute="height" secondItem="6pK-dW-9fx" secondAttribute="height" multiplier="1.5" id="ARv-Pe-Tvj"/>
                             <constraint firstItem="D0b-eB-LCz" firstAttribute="height" secondItem="LfP-R7-9qg" secondAttribute="height" multiplier="0.8" id="CBp-KG-lDN"/>
                             <constraint firstItem="649-pU-kSo" firstAttribute="centerY" secondItem="LfP-R7-9qg" secondAttribute="centerY" id="DOz-Bt-kM7"/>
                             <constraint firstItem="D0b-eB-LCz" firstAttribute="leading" secondItem="6G7-Wn-Xfa" secondAttribute="trailing" id="Gbs-Vu-X2l"/>
