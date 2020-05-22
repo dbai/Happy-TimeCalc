@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     let timeLabelBorderColor = UIColor.lightGray.cgColor
     var timeLabelWidth: CGFloat!
     var timeLabelHeight: CGFloat!
-    let timeLabelAspectRatio: CGFloat = 1.64
+    let timeLabelAspectRatio: CGFloat = 1.9
     let timeLabelWidthProportion: CGFloat = 0.15
     let btnBorderColor = UIColor.blue.cgColor
 
@@ -215,6 +215,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // 初始化元件尺寸
         timeLabelWidth = scrollView.frame.width * timeLabelWidthProportion
         timeLabelHeight = timeLabelWidth / timeLabelAspectRatio
         spaceAroundOperatorButton = scrollView.frame.height * spaceAroundOperatorButtonProportion
@@ -225,19 +226,16 @@ class ViewController: UIViewController {
         totalWidthConstraint.constant = timeLabelWidth
         totalHeightConstraint.constant = timeLabelHeight
         
+        // 加入時間欄位
         addRow(UIButton())
         focusedLabel = timeRows[0][0]
         timeRows[0][0].backgroundColor = getFocusedBackgroundColor()
         addRow(UIButton())
 
-        if timeRows.count > 0 {
-            separatorView.frame.origin.y = timeRows[timeRows.count - 1][0].frame.maxY + spaceAroundSeparator
-            totalTopConstraint.constant = separatorView.frame.maxY + spaceAroundSeparator
-        }
         // For testing purpose only
 //        addMultipleRows(numberOfRows: 7)
         
-        // 動畫
+        // 前兩列出現的動畫
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.view.layoutIfNeeded()
         }
@@ -566,11 +564,6 @@ class ViewController: UIViewController {
                 totalTopConstraint.constant -= rowSpacing
             }
         }
-
-//        print("1. timeLabelHeight: ", timeLabelHeight)
-//        print("1. minTotal.frame.height: ", minTotal.frame.height)
-//        print("1. totalTopConstraint: ", totalTopConstraint.constant)
-//        print("1. totalBottomConstraint: ", totalBottomConstraint.constant, "\n")
         
         // 更新減列按鈕出現與否
         if removeRowButtons.count <= 1 {
@@ -582,6 +575,12 @@ class ViewController: UIViewController {
             for (i, _) in removeRowButtons.enumerated() {
                 removeRowButtons[i].isHidden = false
             }
+        }
+        
+        // 調整 ContentView 高度
+        if timeRows.count > 0 {
+            separatorView.frame.origin.y = timeRows[timeRows.count - 1][0].frame.maxY + spaceAroundSeparator
+            totalTopConstraint.constant = separatorView.frame.maxY + spaceAroundSeparator
         }
         
         shouldChangeLayout = true
